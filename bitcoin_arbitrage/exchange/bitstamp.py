@@ -1,8 +1,9 @@
 import logging
+
 import requests
 
-from currency_pair import CurrencyPair
-from exchange import Exchange
+from bitcoin_arbitrage.currency_pair import CurrencyPair
+from bitcoin_arbitrage.exchange import Exchange
 
 logger = logging.Logger('Bitstamp')
 
@@ -21,4 +22,3 @@ class Bitstamp(Exchange):
         json = response.json()
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
-

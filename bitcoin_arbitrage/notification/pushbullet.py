@@ -2,8 +2,8 @@ import logging
 
 import pushbullet as pb_lib
 
-from notification import NotificationService
-from spread_detection import Spread
+from bitcoin_arbitrage.notification import NotificationService
+from bitcoin_arbitrage.spread_detection import Spread
 
 logger = logging.Logger('Pushbullet')
 logger.setLevel(logging.DEBUG)

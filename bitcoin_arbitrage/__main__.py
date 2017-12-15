@@ -1,9 +1,7 @@
 import logging
-
 import sys
 
-import settings
-from monitor import Monitor
+from bitcoin_arbitrage.monitor import Monitor
 
 logger = logging.getLogger('main')
 # logger.setLevel(settings.LOG_LEVEL)
