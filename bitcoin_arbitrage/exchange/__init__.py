@@ -25,9 +25,6 @@ class Exchange(ABC):
         self.last_ask_price: Optional[float] = None
         self.last_bid_price: Optional[float] = None
 
-        # Get prices after initialising the exchange
-        self.update_prices()
-
     def __str__(self):
         return f"{self.name} ({self.currency_pair.value})"
 
