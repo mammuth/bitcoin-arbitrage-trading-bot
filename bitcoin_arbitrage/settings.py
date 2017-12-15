@@ -4,6 +4,7 @@ from typing import List
 from currency_pair import CurrencyPair
 
 from exchange import Exchange
+from exchange.bitfinex import Bitfinex
 from exchange.bitstamp import Bitstamp
 from exchange.gdax import Gdax
 
@@ -11,6 +12,7 @@ from notification import NotificationService
 from notification.pushbullet import Pushbullet
 
 EXCHANGES: List[Exchange] = [
+    Bitfinex(CurrencyPair.BTC_EUR),
     Bitstamp(CurrencyPair.BTC_EUR),
     Gdax(CurrencyPair.BTC_EUR),
 ]
