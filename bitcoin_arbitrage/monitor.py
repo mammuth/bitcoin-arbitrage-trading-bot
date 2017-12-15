@@ -1,13 +1,13 @@
 import csv
-import json
-from contextlib import suppress
+import logging
 from datetime import datetime
 import asyncio
-
 import os
 
 import settings
 from exchange import Exchange
+
+logger = logging.getLogger('Monitor')
 
 
 class Monitor:
@@ -64,7 +64,7 @@ class Monitor:
     async def _update(self) -> None:
         while True:
             for exchange in settings.EXCHANGES:
-                print('Update...')
+                logger.debug('Update...')
                 await self._write_price_history_to_file(exchange)
 
             await asyncio.sleep(settings.UPDATE_INTERVAL)
