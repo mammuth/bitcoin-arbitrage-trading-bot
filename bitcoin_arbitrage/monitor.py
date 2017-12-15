@@ -1,4 +1,4 @@
-from bitcoin_arbitrage import settings
+import settings
 
 
 class Monitor:

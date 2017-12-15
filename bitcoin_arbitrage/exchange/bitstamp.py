@@ -1,7 +1,7 @@
 import requests
 
-from bitcoin_arbitrage.currency_pair import CurrencyPair
-from bitcoin_arbitrage.exchange import Exchange
+from currency_pair import CurrencyPair
+from exchange import Exchange
 
 
 class Bitstamp(Exchange):

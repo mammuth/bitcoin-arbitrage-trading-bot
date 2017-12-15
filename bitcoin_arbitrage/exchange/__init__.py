@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from bitcoin_arbitrage.currency_pair import CurrencyPair
+from currency_pair import CurrencyPair
 
 
 class Exchange(ABC):
