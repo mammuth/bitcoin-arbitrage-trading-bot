@@ -21,6 +21,10 @@ class Spread:
                f'{self.exchange_sell} [{self.exchange_sell.last_bid_price}] -> ' \
                f'Spread: {self.spread}'
 
+    @property
+    def spread_verbose(self):
+        return '{:2f}'.format(self.spread)
+
     def _calculate_spread(self) -> float:
         d1 = self.exchange_one.last_bid_price - self.exchange_two.last_ask_price
         d2 = self.exchange_two.last_bid_price - self.exchange_one.last_ask_price

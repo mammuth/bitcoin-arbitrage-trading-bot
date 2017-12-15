@@ -23,7 +23,7 @@ class Pushbullet(NotificationService):
         if super(Pushbullet, self).notify(spread):
             logger.debug('Notifying...')
             if self._pb is not None:
-                self._pb.push_note(title='BTC Arbitrage', body=f'{spread.summary}')
+                self._pb.push_note(title=f'BTC Spread {spread.spread_verbose}', body=f'{spread.summary}')
             return True
         return False
 
