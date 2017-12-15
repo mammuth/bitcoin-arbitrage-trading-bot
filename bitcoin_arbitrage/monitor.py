@@ -56,9 +56,8 @@ class Monitor:
                     # ToDo Write into file
                     # ToDo Somehow wire to a trading component
                     pass
-                if spread.is_above_notification_thresehold():
-                    for service in settings.NOTIFICATION_SERVICES:
-                        service.notify(spread=spread)
+                for service in settings.NOTIFICATION_SERVICES:
+                    service.notify(spread=spread)
             await asyncio.sleep(settings.UPDATE_INTERVAL)
 
     def _calculate_spreads(self) -> List[Spread]:

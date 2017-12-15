@@ -4,6 +4,8 @@ from spread_detection import Spread
 
 class NotificationService(ABC):
 
-    @abstractmethod
-    def notify(self, spread: Spread) -> None:
-        raise NotImplementedError
+    def __init__(self, spread_threshold: float) -> None:
+        self.threshold = spread_threshold
+
+    def notify(self, spread: Spread) -> bool:
+        return spread.spread > self.threshold

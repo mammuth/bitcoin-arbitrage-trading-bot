@@ -32,8 +32,5 @@ class Spread:
 
         return max(d1, d2)
 
-    def is_above_notification_thresehold(self) -> bool:
-        return self.spread > settings.MINIMUM_SPREAD_NOTIFICATION
-
     def is_above_trading_thresehold(self) -> bool:
         return self.spread > settings.MINIMUM_SPREAD_TRADING

@@ -10,6 +10,7 @@ from exchange.gdax import Gdax
 
 from notification import NotificationService
 from notification.pushbullet import Pushbullet
+from notification.stdout import StdoutNotification
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),
@@ -18,7 +19,8 @@ EXCHANGES: List[Exchange] = [
 ]
 
 NOTIFICATION_SERVICES: List[NotificationService] = [
-    Pushbullet(api_key='DEBUG'),
+    Pushbullet(spread_threshold=500, api_key='DEBUG'),
+    StdoutNotification(spread_threshold=300),
 ]
 
 UPDATE_INTERVAL = 5  # seconds
@@ -26,7 +28,6 @@ UPDATE_INTERVAL = 5  # seconds
 PRICE_HISTORY_FILE = 'price_history.csv'
 
 
-MINIMUM_SPREAD_NOTIFICATION = 1
 MINIMUM_SPREAD_TRADING = 200
 
 LOG_LEVEL = logging.DEBUG
