@@ -1,18 +1,10 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 from currency_pair import CurrencyPair
 
 
 class Exchange(ABC):
-    currency_pair: CurrencyPair
-
-    def __init__(self, currency_pair: CurrencyPair):
-        self.currency_pair = currency_pair
-
-    def __str__(self):
-        return f"{self.name} ({self.currency_pair.value})" \
-               f"\n - Ask: {self.get_ask_price()}" \
-               f"\n - Bid: {self.get_bid_price()}"
 
     @property
     def name(self) -> str:
@@ -28,10 +20,24 @@ class Exchange(ABC):
     def base_url(self) -> str:
         raise NotImplementedError
 
-    @abstractmethod
-    def get_ask_price(self) -> float:
-        return NotImplemented
+    def __init__(self, currency_pair: CurrencyPair):
+        self.currency_pair = currency_pair
+        self.last_ask_price: Optional[float] = None
+        self.last_bid_price: Optional[float] = None
 
+        # Get prices after initialising the exchange
+        self.update_prices()
+
+    def __str__(self):
+        return f"{self.name} ({self.currency_pair.value})"
+
+    @property
+    def summary(self):
+        return self.__str__() + f"\n - Ask: {self.last_ask_price}" \
+                                f"\n - Bid: {self.last_bid_price}"
+
+    # ToDo: Make async
     @abstractmethod
-    def get_bid_price(self) -> float:
-        return NotImplemented
+    def update_prices(self) -> None:
+        raise NotImplementedError('Implement update_prices() for your exchange. '
+                                  'Make sure to also set self.last_ask_price and self.last_bid_price at the end.')

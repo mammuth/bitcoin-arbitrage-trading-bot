@@ -3,11 +3,16 @@ import logging
 from datetime import datetime
 import asyncio
 import os
+from typing import List
+
+import itertools
 
 import settings
 from exchange import Exchange
+from spread_detection import Spread
 
 logger = logging.getLogger('Monitor')
+logger.setLevel(logging.DEBUG)
 
 
 class Monitor:
@@ -16,6 +21,8 @@ class Monitor:
         self._update_task: asyncio.Task = None
         self._update_task_loop = None
         self._is_update_task_started = False
+        self._last_spreads: List[Spread] = []
+
         if settings.UPDATE_INTERVAL < 5:
             raise ValueError('Please use an update interval >= 5 seconds')
         self._update_interval = settings.UPDATE_INTERVAL
@@ -35,8 +42,28 @@ class Monitor:
         if self._is_update_task_started:
             self._update_task.cancel()
 
-    def notify(self) -> None:
-        return NotImplemented
+    async def _update(self) -> None:
+        while True:
+            logger.debug('Update...')
+            for exchange in settings.EXCHANGES:
+                exchange.update_prices()
+                await self._write_price_history_to_file(exchange)
+
+            self._last_spreads = self._calculate_spreads()
+            for spread in self._last_spreads:
+                if spread.is_above_trading_thresehold():
+                    logger.debug(f'Spread above trading threshold: {spread}')
+                    # ToDo Write into file
+                    # ToDo Somehow wire to a trading component
+                    pass
+                if spread.is_above_notification_thresehold():
+                    for service in settings.NOTIFICATION_SERVICES:
+                        service.notify(spread=spread)
+            await asyncio.sleep(settings.UPDATE_INTERVAL)
+
+    def _calculate_spreads(self) -> List[Spread]:
+        combinations: List[(Exchange, Exchange)] = itertools.combinations(settings.EXCHANGES, 2)
+        return [Spread(exchange_one=pair[0], exchange_two=pair[1]) for pair in combinations]
 
     async def _write_price_history_to_file(self, exchange: Exchange) -> None:
         # Write to file
@@ -46,8 +73,8 @@ class Monitor:
             'timestamp': timestamp,
             'time_pretty': datetime.utcfromtimestamp(timestamp),
             'name': exchange.name,
-            'ask_price': exchange.get_ask_price(),
-            'bid_price': exchange.get_bid_price(),
+            'ask_price': exchange.last_ask_price,
+            'bid_price': exchange.last_bid_price,
             'currency_pair': exchange.currency_pair.value
         }
         # Create file if it does not yet exist
@@ -60,11 +87,3 @@ class Monitor:
         with open(settings.PRICE_HISTORY_FILE, 'a') as file:
             w = csv.DictWriter(file, header)
             w.writerow(row)
-
-    async def _update(self) -> None:
-        while True:
-            for exchange in settings.EXCHANGES:
-                logger.debug('Update...')
-                await self._write_price_history_to_file(exchange)
-
-            await asyncio.sleep(settings.UPDATE_INTERVAL)

@@ -1,7 +1,10 @@
+import logging
 import requests
 
 from currency_pair import CurrencyPair
 from exchange import Exchange
+
+logger = logging.Logger('Bitstamp')
 
 
 class Bitstamp(Exchange):
@@ -10,18 +13,12 @@ class Bitstamp(Exchange):
         CurrencyPair.BTC_USD: "btcusd",
         CurrencyPair.BTC_EUR: "btceur"
     }
-    currency_pair = None
 
-    # ToDo async
-    def get_ask_price(self) -> float:
+    # Todo: Make async
+    def update_prices(self) -> None:
         url = f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
         response = requests.get(url)
         json = response.json()
-        return json.get('ask')
+        self.last_ask_price = float(json.get('ask'))
+        self.last_bid_price = float(json.get('bid'))
 
-    # ToDo async
-    def get_bid_price(self) -> float:
-        url = f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
-        response = requests.get(url)
-        json = response.json()
-        return json.get('bid')

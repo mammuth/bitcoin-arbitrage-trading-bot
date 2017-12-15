@@ -8,6 +8,7 @@ name = "pypi"
 [packages]
 
 requests = "*"
+"pushbullet.py" = "*"
 
 
 [dev-packages]
