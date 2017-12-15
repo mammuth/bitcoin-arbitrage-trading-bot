@@ -12,12 +12,14 @@ class Bitstamp(Exchange):
     }
     currency_pair = None
 
+    # ToDo async
     def get_ask_price(self) -> float:
         url = f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
         response = requests.get(url)
         json = response.json()
         return json.get('ask')
 
+    # ToDo async
     def get_bid_price(self) -> float:
         url = f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
         response = requests.get(url)
