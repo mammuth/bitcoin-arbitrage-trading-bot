@@ -16,7 +16,6 @@ class Spread:
         return f'{self.exchange_one} and {self.exchange_two}. Difference: {self.spread}'
 
     def _calculate_spread(self) -> float:
-        return 42.0
         d1 = abs(self.exchange_one.last_ask_price - self.exchange_two.last_bid_price)
         d2 = abs(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
         return max(d1, d2)
