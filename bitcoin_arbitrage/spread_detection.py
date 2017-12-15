@@ -15,11 +15,21 @@ class Spread:
 
     @property
     def summary(self):
-        return f'{self.exchange_one} and {self.exchange_two}. Difference: {self.spread}'
+        return f'{self.exchange_buy} [{self.exchange_buy.last_ask_price}] -> ' \
+               f'{self.exchange_sell} [{self.exchange_sell.last_bid_price}] -> ' \
+               f'Spread: {self.spread}'
 
     def _calculate_spread(self) -> float:
-        d1 = abs(self.exchange_one.last_ask_price - self.exchange_two.last_bid_price)
-        d2 = abs(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
+        d1 = self.exchange_one.last_bid_price - self.exchange_two.last_ask_price
+        d2 = self.exchange_two.last_bid_price - self.exchange_one.last_ask_price
+
+        if d1 > d2:
+            self.exchange_buy = self.exchange_two
+            self.exchange_sell = self.exchange_one
+        else:
+            self.exchange_buy = self.exchange_one
+            self.exchange_sell = self.exchange_two
+
         return max(d1, d2)
 
     def is_above_notification_thresehold(self) -> bool:
