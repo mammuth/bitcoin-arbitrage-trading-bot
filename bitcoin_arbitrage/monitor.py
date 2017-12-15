@@ -47,7 +47,7 @@ class Monitor:
             logger.debug('Update...')
             for exchange in settings.EXCHANGES:
                 exchange.update_prices()
-                await self._write_price_history_to_file(exchange)
+                # await self._write_price_history_to_file(exchange)
 
             self._last_spreads = self._calculate_spreads()
             for spread in self._last_spreads:
