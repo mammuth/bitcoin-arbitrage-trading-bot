@@ -8,6 +8,8 @@ class Spread:
             raise AttributeError('Spread between different currency pairs is not supported')
         self.exchange_one = exchange_one
         self.exchange_two = exchange_two
+        self.exchange_buy: Exchange = None
+        self.exchange_sell: Exchange = None
         self.spread = self._calculate_spread()
 
     def __str__(self) -> str:

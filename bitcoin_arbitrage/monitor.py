@@ -58,15 +58,45 @@ class Monitor:
                     pass
                 for service in settings.NOTIFICATION_SERVICES:
                     service.notify(spread=spread)
+                if spread.spread > settings.SPREAD_HISTORY_THRESHOLD:
+                    await self._write_spread_to_file(spread)
             await asyncio.sleep(settings.UPDATE_INTERVAL)
 
     def _calculate_spreads(self) -> List[Spread]:
         combinations: List[(Exchange, Exchange)] = itertools.combinations(settings.EXCHANGES, 2)
         return [Spread(exchange_one=pair[0], exchange_two=pair[1]) for pair in combinations]
 
+    async def _write_spread_to_file(self, spread: Spread) -> None:
+        # Write to file
+        header = ['buy_exchange', 'sell_exchange', 'spread', 'time_pretty', 'buy_price', 'sell_price', 'currency_pair',
+                  'timestamp']
+        filename = settings.SPREAD_HISTORY_FILE
+        timestamp = datetime.now().timestamp()
+        row = {
+            'buy_exchange': spread.exchange_buy,
+            'sell_exchange': spread.exchange_sell,
+            'spread': spread.spread,
+            'time_pretty': datetime.utcfromtimestamp(timestamp),
+            'buy_price': spread.exchange_buy.last_ask_price,
+            'sell_price': spread.exchange_sell.last_bid_price,
+            'currency_pair': spread.exchange_buy.currency_pair.value,
+            'timestamp': timestamp,
+        }
+        # Create file if it does not yet exist
+        if not os.path.isfile(filename):
+            f = open(filename, 'w+')
+            w = csv.DictWriter(f, header)
+            w.writeheader()
+            f.close()
+        # Append data to file
+        with open(filename, 'a') as file:
+            w = csv.DictWriter(file, header)
+            w.writerow(row)
+
     async def _write_price_history_to_file(self, exchange: Exchange) -> None:
         # Write to file
         header = ['name', 'time_pretty', 'ask_price', 'bid_price', 'currency_pair', 'timestamp']
+        filename = settings.PRICE_HISTORY_FILE
         timestamp = datetime.now().timestamp()
         row = {
             'timestamp': timestamp,
@@ -77,12 +107,12 @@ class Monitor:
             'currency_pair': exchange.currency_pair.value
         }
         # Create file if it does not yet exist
-        if not os.path.isfile(settings.PRICE_HISTORY_FILE):
-            f = open(settings.PRICE_HISTORY_FILE, 'w+')
+        if not os.path.isfile(filename):
+            f = open(filename, 'w+')
             w = csv.DictWriter(f, header)
             w.writeheader()
             f.close()
         # Append data to file
-        with open(settings.PRICE_HISTORY_FILE, 'a') as file:
+        with open(filename, 'a') as file:
             w = csv.DictWriter(file, header)
             w.writerow(row)
