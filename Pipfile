@@ -9,7 +9,6 @@ name = "pypi"
 
 requests = "*"
 "pushbullet.py" = "*"
-pytest = "*"
 
 
 [dev-packages]

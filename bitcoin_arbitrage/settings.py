@@ -1,11 +1,11 @@
 import logging
 from typing import List
 
-from bitcoin_arbitrage.currency_pair import CurrencyPair
-from bitcoin_arbitrage.exchange import Exchange
-from bitcoin_arbitrage.exchange.bitstamp import Bitstamp
-from bitcoin_arbitrage.notification import NotificationService
-from bitcoin_arbitrage.notification.pushbullet import Pushbullet
+from currency_pair import CurrencyPair
+from exchange import Exchange
+from exchange.bitstamp import Bitstamp
+from notification import NotificationService
+from notification.pushbullet import Pushbullet
 
 EXCHANGES: List[Exchange] = [
     Bitstamp(CurrencyPair.BTC_EUR),

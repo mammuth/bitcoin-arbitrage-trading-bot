@@ -1,5 +1,5 @@
-from bitcoin_arbitrage import settings
-from bitcoin_arbitrage.exchange import Exchange
+import settings
+from exchange import Exchange
 
 
 class Spread:

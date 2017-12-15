@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-
-from bitcoin_arbitrage.spread_detection import Spread
+from spread_detection import Spread
 
 
 class NotificationService(ABC):

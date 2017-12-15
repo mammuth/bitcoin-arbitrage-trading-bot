@@ -1,15 +1,15 @@
-import asyncio
 import csv
-import itertools
 import logging
 from datetime import datetime
+import asyncio
+import os
 from typing import List
 
-import os
+import itertools
 
-from bitcoin_arbitrage import settings
-from bitcoin_arbitrage.exchange import Exchange
-from bitcoin_arbitrage.spread_detection import Spread
+import settings
+from exchange import Exchange
+from spread_detection import Spread
 
 logger = logging.getLogger('Monitor')
 logger.setLevel(logging.DEBUG)
