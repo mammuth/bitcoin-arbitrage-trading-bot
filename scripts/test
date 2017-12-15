@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+PYTHONPATH=./bitcoin_arbitrage pytest
