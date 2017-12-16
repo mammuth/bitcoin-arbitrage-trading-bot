@@ -1,4 +1,7 @@
 import logging
+
+LOG_LEVEL = logging.DEBUG
+
 from typing import List
 
 from currency_pair import CurrencyPair
@@ -27,9 +30,5 @@ UPDATE_INTERVAL = 5  # seconds
 
 PRICE_HISTORY_FILE = 'price_history.csv'
 SPREAD_HISTORY_FILE = 'spread_history.csv'
-SPREAD_HISTORY_THRESHOLD = 200
-
 
 MINIMUM_SPREAD_TRADING = 200
-
-LOG_LEVEL = logging.DEBUG

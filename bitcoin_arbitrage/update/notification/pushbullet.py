@@ -1,14 +1,14 @@
-import logging
 from typing import List
 
 import pushbullet as pb_lib
+
+from log import setup_logger
 
 from exchange import Exchange
 from spread_detection import Spread
 from update.notification import NotificationService
 
-logger = logging.Logger('Pushbullet')
-logger.setLevel(logging.DEBUG)
+logger = setup_logger('Pushbullet')
 
 
 class Pushbullet(NotificationService):
