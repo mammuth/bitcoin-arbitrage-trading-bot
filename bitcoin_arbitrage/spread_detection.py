@@ -26,7 +26,7 @@ class Spread:
 
     @property
     def spread_verbose(self):
-        return '{:2f}'.format(self.spread)
+        return self.spread
 
     def _calculate_spread(self) -> int:
         d1 = int(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
