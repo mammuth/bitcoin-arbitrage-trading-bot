@@ -25,6 +25,6 @@ class Pushbullet(NotificationService):
             return
         spread = self._get_spread_for_notification(spreads)
         if spread is not None:
-            logger.debug('Notifying about spread via Pushbullet')
+            logger.info('Notifying about spread via Pushbullet')
             if self._pb is not None:
                 self._pb.push_note(title=f'BTC Spread {spread.spread_verbose}', body=f'{spread.summary}')

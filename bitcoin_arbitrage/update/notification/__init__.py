@@ -20,13 +20,17 @@ class NotificationService(UpdateAction, ABC):
         raise NotImplementedError
 
     def _should_notify(self):
-        if self.last_notification is None:
-            return True
         now = datetime.now()
+
+        if self.last_notification is None:
+            self.last_notification = now
+            return True
+
         seconds_since_last_notification = (now - self.last_notification).total_seconds()
         if seconds_since_last_notification >= settings.TIME_BETWEEN_NOTIFICATIONS:
             self.last_notification = now
             return True
+
         return False
 
     def _get_spread_for_notification(self, spreads: List[Spread]) -> Optional[Spread]:
