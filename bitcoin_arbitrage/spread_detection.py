@@ -21,11 +21,7 @@ class Spread:
                f'{self.exchange_sell} [{self.exchange_sell.last_bid_price}] -> ' \
                f'Spread: {self.spread}'
 
-    @property
-    def spread_verbose(self):
-        return '{:2f}'.format(self.spread)
-
-    def _calculate_spread(self) -> float:
+    def _calculate_spread(self) -> int:
         d1 = self.exchange_one.last_bid_price - self.exchange_two.last_ask_price
         d2 = self.exchange_two.last_bid_price - self.exchange_one.last_ask_price
 
@@ -36,7 +32,7 @@ class Spread:
             self.exchange_buy = self.exchange_one
             self.exchange_sell = self.exchange_two
 
-        return max(d1, d2)
+        return int(max(d1, d2))
 
     def is_above_trading_thresehold(self) -> bool:
         return self.spread > settings.MINIMUM_SPREAD_TRADING
