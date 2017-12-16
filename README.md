@@ -10,14 +10,6 @@ Run the monitor:
 - `sciprts/copy-config` - Copy config file (some dummy settings are set by default)
 - `scripts/run` - Run the monitor
 
-### Running Tests
-Manually: 
-- `pipenv shell`
-- `scripts/test`
-
-With PyCharm:
-![image](https://user-images.githubusercontent.com/3121306/34055600-3bde00ae-e1d0-11e7-87dd-5f67eaddab9b.png)
-
 ### Running on server
 
 You can use the following systemd service entry:
@@ -36,3 +28,11 @@ ExecStart=/home/bitcoin/bitcoin-arbitrage/scripts/run
 [Install]
 WantedBy=multi-user.target
 ```
+
+### Running the tests
+Manually: 
+- `pipenv shell`
+- `scripts/test`
+
+With PyCharm:
+![image](https://user-images.githubusercontent.com/3121306/34055600-3bde00ae-e1d0-11e7-87dd-5f67eaddab9b.png)
