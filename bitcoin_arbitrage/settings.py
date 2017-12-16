@@ -8,9 +8,9 @@ from exchange.bitfinex import Bitfinex
 from exchange.bitstamp import Bitstamp
 from exchange.gdax import Gdax
 
-from notification import NotificationService
-from notification.pushbullet import Pushbullet
-from notification.stdout import StdoutNotification
+from update import UpdateAction
+from update.notification.pushbullet import Pushbullet
+from update.notification.stdout import StdoutNotification
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),
@@ -18,7 +18,7 @@ EXCHANGES: List[Exchange] = [
     Gdax(CurrencyPair.BTC_EUR),
 ]
 
-NOTIFICATION_SERVICES: List[NotificationService] = [
+UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
     StdoutNotification(spread_threshold=300),
 ]

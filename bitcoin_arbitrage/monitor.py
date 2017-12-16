@@ -16,7 +16,6 @@ logger.setLevel(logging.DEBUG)
 
 
 class Monitor:
-
     def __init__(self) -> None:
         self._update_task: asyncio.Task = None
         self._update_task_loop = None
@@ -45,21 +44,16 @@ class Monitor:
     async def _update(self) -> None:
         while True:
             logger.debug('Update...')
+
             for exchange in settings.EXCHANGES:
                 exchange.update_prices()
-                # await self._write_price_history_to_file(exchange)
 
-            self._last_spreads = self._calculate_spreads()
-            for spread in self._last_spreads:
-                if spread.is_above_trading_thresehold():
-                    logger.debug(f'Spread above trading threshold: {spread}')
-                    # ToDo Write into file
-                    # ToDo Somehow wire to a trading component
-                    pass
-                for service in settings.NOTIFICATION_SERVICES:
-                    service.notify(spread=spread)
-                if spread.spread > settings.SPREAD_HISTORY_THRESHOLD:
-                    await self._write_spread_to_file(spread)
+            spreads = self._calculate_spreads()
+            timestamp = datetime.now().timestamp()
+
+            for action in settings.UPDATE_ACTIONS:
+                action.run(spreads, settings.EXCHANGES, timestamp)
+
             await asyncio.sleep(settings.UPDATE_INTERVAL)
 
     def _calculate_spreads(self) -> List[Spread]:

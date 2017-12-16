@@ -25,18 +25,18 @@ class Spread:
     def spread_verbose(self):
         return '{:2f}'.format(self.spread)
 
-    def _calculate_spread(self) -> float:
-        d1 = self.exchange_one.last_bid_price - self.exchange_two.last_ask_price
-        d2 = self.exchange_two.last_bid_price - self.exchange_one.last_ask_price
+    def _calculate_spread(self) -> int:
+        d1 = int(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
+        d2 = int(self.exchange_two.last_bid_price - self.exchange_one.last_ask_price)
 
         if d1 > d2:
             self.exchange_buy = self.exchange_two
             self.exchange_sell = self.exchange_one
+            return d1
         else:
             self.exchange_buy = self.exchange_one
             self.exchange_sell = self.exchange_two
-
-        return max(d1, d2)
+            return d2
 
     def is_above_trading_thresehold(self) -> bool:
         return self.spread > settings.MINIMUM_SPREAD_TRADING
