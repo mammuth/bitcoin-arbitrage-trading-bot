@@ -5,7 +5,6 @@ from currency_pair import CurrencyPair
 
 
 class Exchange(ABC):
-
     @property
     def name(self) -> str:
         return str(self.__class__.__name__)
@@ -38,3 +37,11 @@ class Exchange(ABC):
     def update_prices(self) -> None:
         raise NotImplementedError('Implement update_prices() for your exchange. '
                                   'Make sure to also set self.last_ask_price and self.last_bid_price at the end.')
+
+    # @abstractmethod
+    # def get_account_balance(self) -> float:
+    #     raise NotImplementedError('Implement get_account_balance() for your exchange.')
+    #
+    # @abstractmethod
+    # def buy(self) -> str:
+    #     raise NotImplementedError('Implement buy() for your exchange.')
