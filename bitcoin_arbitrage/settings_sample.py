@@ -2,7 +2,7 @@ import logging
 
 from update.spread_history import SpreadHistoryToCSV
 
-LOG_LEVEL = logging.DEBUG
+LOG_LEVEL = logging.INFO
 
 from typing import List
 
