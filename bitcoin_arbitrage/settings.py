@@ -1,5 +1,7 @@
 import logging
 
+from update.spread_history import SpreadHistory
+
 LOG_LEVEL = logging.DEBUG
 
 from typing import List
@@ -23,7 +25,8 @@ EXCHANGES: List[Exchange] = [
 
 UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
-    StdoutNotification(spread_threshold=300),
+    # StdoutNotification(spread_threshold=300),
+    SpreadHistory(),
 ]
 
 UPDATE_INTERVAL = 5  # seconds
