@@ -12,8 +12,8 @@ logger = setup_logger('Pushbullet')
 
 
 class Pushbullet(NotificationService):
-    def __init__(self, spread_threshold: float, api_key: str) -> None:
-        super().__init__(spread_threshold)
+    def __init__(self, spread_threshold: int, api_key: str) -> None:
+        super(Pushbullet, self).__init__(spread_threshold)
         # ToDo: Raise error when api key is missing
         if api_key == 'DEBUG':
             self._pb = None
@@ -21,6 +21,8 @@ class Pushbullet(NotificationService):
             self._pb = pb_lib.Pushbullet(api_key=api_key)
 
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
+        if not self._should_notify():
+            return
         spread = self._get_spread_for_notification(spreads)
         if spread is not None:
             logger.debug('Notifying about spread via Pushbullet')

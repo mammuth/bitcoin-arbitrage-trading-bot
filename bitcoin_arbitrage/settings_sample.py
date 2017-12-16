@@ -31,6 +31,8 @@ UPDATE_ACTIONS: List[UpdateAction] = [
 
 UPDATE_INTERVAL = 30  # seconds
 
+TIME_BETWEEN_NOTIFICATIONS = 5 * 60  # Only send a notification every 5 minutes
+
 SPREAD_HISTORY_FILE = 'spread_history.csv'
 
 MINIMUM_SPREAD_TRADING = 200
