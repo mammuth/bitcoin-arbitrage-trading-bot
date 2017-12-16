@@ -1,4 +1,3 @@
-import logging
 import requests
 
 from currency_pair import CurrencyPair

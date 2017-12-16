@@ -1,5 +1,6 @@
 import pytest
 
+from bitcoin_arbitrage.log import setup_logger  # NOQA
 from bitcoin_arbitrage.currency_pair import CurrencyPair
 from bitcoin_arbitrage.exchange.bitstamp import Bitstamp
 from bitcoin_arbitrage.spread_detection import Spread
