@@ -1,12 +1,11 @@
-import logging
 from typing import List
 
 from exchange import Exchange
+from log import setup_logger
 from spread_detection import Spread
 from update.notification import NotificationService
 
-logger = logging.Logger('Pushbullet')
-logger.setLevel(logging.DEBUG)
+logger = setup_logger('Stdout')
 
 
 class StdoutNotification(NotificationService):
