@@ -10,6 +10,6 @@ logger = setup_logger('Stdout')
 
 class StdoutNotification(NotificationService):
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
-        for spread in spreads:
-            if self._should_notify(spread=spread):
-                print(spread.summary)
+        spread = self._get_spread_for_notification(spreads)
+        if spread is not None:
+            logger.info(f'BTC Spread {spread.spread_verbose} - {spread.summary}')

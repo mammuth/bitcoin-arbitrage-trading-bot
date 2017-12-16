@@ -15,6 +15,9 @@ class Spread:
     def __str__(self) -> str:
         return self.summary
 
+    def __repr__(self) -> str:
+        return self.__str__()
+
     @property
     def summary(self):
         return f'{self.exchange_buy} [{self.exchange_buy.last_ask_price}] -> ' \

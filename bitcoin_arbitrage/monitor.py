@@ -4,8 +4,6 @@ import itertools
 from datetime import datetime
 from typing import List
 
-import os
-
 import settings
 from exchange import Exchange
 from log import setup_logger
@@ -20,9 +18,6 @@ class Monitor:
         self._update_task_loop = None
         self._is_update_task_started = False
         self._last_spreads: List[Spread] = []
-
-        if settings.UPDATE_INTERVAL < 5:
-            raise ValueError('Please use an update interval >= 5 seconds')
         self._update_interval = settings.UPDATE_INTERVAL
 
     def start(self) -> None:
