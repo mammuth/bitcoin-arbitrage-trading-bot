@@ -1,4 +1,4 @@
-### Usage
+### Running locally
 
 Requirements:
 - python >= 3.6
@@ -17,3 +17,22 @@ Manually:
 
 With PyCharm:
 ![image](https://user-images.githubusercontent.com/3121306/34055600-3bde00ae-e1d0-11e7-87dd-5f67eaddab9b.png)
+
+### Running on server
+
+You can use the following systemd service entry:
+```
+[Unit]
+Description=Bitcoin Arbitrage Monitor
+After=network-online.target
+
+[Service]
+Type=simple
+User=bitcoin
+Restart=alwaysi
+WorkingDirectory=/home/bitcoin/bitcoin-arbitrage
+ExecStart=/home/bitcoin/bitcoin-arbitrage/scripts/run
+
+[Install]
+WantedBy=multi-user.target
+```
