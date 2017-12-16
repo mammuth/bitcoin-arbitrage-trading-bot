@@ -9,6 +9,8 @@ name = "pypi"
 
 requests = "*"
 "pushbullet.py" = "*"
+mypy = "*"
+isort = "*"
 
 
 [dev-packages]

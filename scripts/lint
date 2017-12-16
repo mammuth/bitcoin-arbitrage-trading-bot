@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+pipenv run flake8 bitcoin_arbitrage
+pipenv run isort bitcoin_arbitrage
+pipenv run mypy bitcoin_arbitrage
