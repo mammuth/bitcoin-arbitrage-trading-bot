@@ -13,7 +13,7 @@ class NotificationService(UpdateAction, ABC):
 
     def __init__(self, spread_threshold: Optional[int] = None) -> None:
         super().__init__(spread_threshold)
-        self.last_notification: datetime = None
+        self._last_notification: datetime = None
 
     @abstractmethod
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
@@ -22,13 +22,13 @@ class NotificationService(UpdateAction, ABC):
     def _should_notify(self, time_between_notifications):
         now = datetime.now()
 
-        if self.last_notification is None:
-            self.last_notification = now
+        if self._last_notification is None:
+            self._last_notification = now
             return True
 
-        seconds_since_last_notification = (now - self.last_notification).total_seconds()
+        seconds_since_last_notification = (now - self._last_notification).total_seconds()
         if seconds_since_last_notification >= time_between_notifications:
-            self.last_notification = now
+            self._last_notification = now
             return True
 
         return False
