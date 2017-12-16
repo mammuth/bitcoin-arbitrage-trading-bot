@@ -21,7 +21,7 @@ After=network-online.target
 [Service]
 Type=simple
 User=bitcoin
-Restart=alwaysi
+Restart=always
 WorkingDirectory=/home/bitcoin/bitcoin-arbitrage
 ExecStart=/home/bitcoin/bitcoin-arbitrage/scripts/run
 
