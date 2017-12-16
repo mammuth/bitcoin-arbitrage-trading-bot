@@ -3,7 +3,6 @@ from datetime import datetime
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-import settings
 from exchange import Exchange
 from spread_detection import Spread
 from update import UpdateAction

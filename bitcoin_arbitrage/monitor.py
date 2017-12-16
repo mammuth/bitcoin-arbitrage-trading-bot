@@ -1,5 +1,4 @@
 import asyncio
-import csv
 import itertools
 from datetime import datetime
 from typing import List

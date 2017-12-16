@@ -1,4 +1,3 @@
-import logging
 import requests
 
 from currency_pair import CurrencyPair
@@ -22,4 +21,3 @@ class Gdax(Exchange):
         json = response.json()
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
-

@@ -25,7 +25,7 @@ EXCHANGES: List[Exchange] = [
 
 UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
-    # StdoutNotification(spread_threshold=300),
+    StdoutNotification(spread_threshold=100),
     SpreadHistoryToCSV(),
 ]
 
