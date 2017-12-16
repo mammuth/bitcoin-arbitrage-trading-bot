@@ -29,7 +29,7 @@ UPDATE_ACTIONS: List[UpdateAction] = [
     SpreadHistory(),
 ]
 
-UPDATE_INTERVAL = 5  # seconds
+UPDATE_INTERVAL = 30  # seconds
 
 PRICE_HISTORY_FILE = 'price_history.csv'
 SPREAD_HISTORY_FILE = 'spread_history.csv'
