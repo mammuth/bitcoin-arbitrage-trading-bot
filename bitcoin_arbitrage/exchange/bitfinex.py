@@ -3,8 +3,9 @@ import requests
 
 from currency_pair import CurrencyPair
 from exchange import Exchange
+from log import setup_logger
 
-logger = logging.Logger('Bitfinex')
+logger = setup_logger('Bitfinex')
 
 
 class Bitfinex(Exchange):

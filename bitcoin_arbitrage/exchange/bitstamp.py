@@ -3,8 +3,9 @@ import requests
 
 from currency_pair import CurrencyPair
 from exchange import Exchange
+from log import setup_logger
 
-logger = logging.Logger('Bitstamp')
+logger = setup_logger('Bitstamp')
 
 
 class Bitstamp(Exchange):

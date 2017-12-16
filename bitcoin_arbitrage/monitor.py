@@ -1,18 +1,17 @@
-import csv
-import logging
-from datetime import datetime
 import asyncio
-import os
+import csv
+import itertools
+from datetime import datetime
 from typing import List
 
-import itertools
+import os
 
 import settings
 from exchange import Exchange
+from log import setup_logger
 from spread_detection import Spread
 
-logger = logging.getLogger('Monitor')
-logger.setLevel(logging.DEBUG)
+logger = setup_logger('Monitor')
 
 
 class Monitor:
@@ -72,8 +71,8 @@ class Monitor:
         filename = settings.SPREAD_HISTORY_FILE
         timestamp = datetime.now().timestamp()
         row = {
-            'buy_exchange': spread.exchange_buy,
-            'sell_exchange': spread.exchange_sell,
+            'buy_exchange': spread.exchange_buy.name,
+            'sell_exchange': spread.exchange_sell.name,
             'spread': spread.spread,
             'time_pretty': datetime.utcfromtimestamp(timestamp),
             'buy_price': spread.exchange_buy.last_ask_price,

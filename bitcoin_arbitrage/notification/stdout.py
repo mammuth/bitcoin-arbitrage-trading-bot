@@ -2,11 +2,12 @@ import logging
 
 import pushbullet as pb_lib
 
+import settings
+from log import setup_logger
 from notification import NotificationService
 from spread_detection import Spread
 
-logger = logging.Logger('Pushbullet')
-logger.setLevel(logging.DEBUG)
+logger = setup_logger('Stdout')
 
 
 class StdoutNotification(NotificationService):
