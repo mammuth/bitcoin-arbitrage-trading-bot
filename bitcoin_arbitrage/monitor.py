@@ -58,8 +58,7 @@ class Monitor:
                     pass
                 for service in settings.NOTIFICATION_SERVICES:
                     service.notify(spread=spread)
-                if spread.spread > settings.SPREAD_HISTORY_THRESHOLD:
-                    await self._write_spread_to_file(spread)
+                await self._write_spread_to_file(spread)
             await asyncio.sleep(settings.UPDATE_INTERVAL)
 
     def _calculate_spreads(self) -> List[Spread]:
