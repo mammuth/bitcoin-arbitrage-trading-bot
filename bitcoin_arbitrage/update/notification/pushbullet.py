@@ -2,6 +2,7 @@ from typing import List
 
 import pushbullet as pb_lib
 
+import settings
 from log import setup_logger
 
 from exchange import Exchange
@@ -21,7 +22,7 @@ class Pushbullet(NotificationService):
             self._pb = pb_lib.Pushbullet(api_key=api_key)
 
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
-        if not self._should_notify():
+        if not self._should_notify(settings.TIME_BETWEEN_NOTIFICATIONS):
             return
         spread = self._get_spread_for_notification(spreads)
         if spread is not None:

@@ -19,7 +19,7 @@ class NotificationService(UpdateAction, ABC):
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
         raise NotImplementedError
 
-    def _should_notify(self):
+    def _should_notify(self, time_between_notifications):
         now = datetime.now()
 
         if self.last_notification is None:
@@ -27,7 +27,7 @@ class NotificationService(UpdateAction, ABC):
             return True
 
         seconds_since_last_notification = (now - self.last_notification).total_seconds()
-        if seconds_since_last_notification >= settings.TIME_BETWEEN_NOTIFICATIONS:
+        if seconds_since_last_notification >= time_between_notifications:
             self.last_notification = now
             return True
 
