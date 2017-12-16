@@ -1,6 +1,6 @@
 import logging
 
-from update.spread_history import SpreadHistory
+from update.spread_history import SpreadHistoryToCSV
 
 LOG_LEVEL = logging.DEBUG
 
@@ -26,12 +26,11 @@ EXCHANGES: List[Exchange] = [
 UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
     # StdoutNotification(spread_threshold=300),
-    SpreadHistory(),
+    SpreadHistoryToCSV(),
 ]
 
 UPDATE_INTERVAL = 30  # seconds
 
-PRICE_HISTORY_FILE = 'price_history.csv'
 SPREAD_HISTORY_FILE = 'spread_history.csv'
 
 MINIMUM_SPREAD_TRADING = 200

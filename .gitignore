@@ -4,3 +4,5 @@
 *.pyc
 *.csv
 *.log
+
+bitcoin_arbitrage/settings.py

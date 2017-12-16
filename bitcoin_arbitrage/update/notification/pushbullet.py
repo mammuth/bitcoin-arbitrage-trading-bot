@@ -23,6 +23,6 @@ class Pushbullet(NotificationService):
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
         for spread in spreads:
             if self._should_notify(spread=spread):
-                logger.debug('Notifying...')
+                logger.info('Notifying about spread via Pushbullet')
                 if self._pb is not None:
                     self._pb.push_note(title=f'BTC Spread {spread.spread_verbose}', body=f'{spread.summary}')

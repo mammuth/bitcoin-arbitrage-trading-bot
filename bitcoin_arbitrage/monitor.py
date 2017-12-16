@@ -51,7 +51,7 @@ class Monitor:
             timestamp = datetime.now().timestamp()
 
             for action in settings.UPDATE_ACTIONS:
-                action.run(spreads, settings.EXCHANGES, timestamp)
+                action.run(spreads, settings.EXCHANGES, timestamp)  # ToDo: Run every action asynchronously?
 
             await asyncio.sleep(settings.UPDATE_INTERVAL)
 

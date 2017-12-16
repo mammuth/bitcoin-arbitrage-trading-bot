@@ -1,2 +1,3 @@
 #!/bin/sh -e
+
 python bitcoin_arbitrage

@@ -10,7 +10,7 @@ from spread_detection import Spread
 from update import UpdateAction
 
 
-class SpreadHistory(UpdateAction):
+class SpreadHistoryToCSV(UpdateAction):
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
         header = ['buy_exchange', 'sell_exchange', 'spread', 'time_pretty', 'buy_price', 'sell_price', 'currency_pair',
                   'timestamp']
