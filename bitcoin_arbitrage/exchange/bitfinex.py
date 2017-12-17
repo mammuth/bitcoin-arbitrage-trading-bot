@@ -1,13 +1,15 @@
 import requests
 
-from currency_pair import CurrencyPair
-from exchange import Exchange, OrderSide, BTCAmount, OrderId
+from currency import CurrencyPair, BTCAmount
+from exchange import Exchange
 from log import setup_logger
+from order import OrderId
 
 logger = setup_logger('Bitfinex')
 
 
 class Bitfinex(Exchange):
+
     base_url = "https://api.bitfinex.com/v1"
     currency_pair_api_representation = {
         CurrencyPair.BTC_USD: "BTCUSD",
@@ -25,6 +27,8 @@ class Bitfinex(Exchange):
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
 
-    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
-                          currency_pair: CurrencyPair) -> OrderId:
+    def limit_buy_order(self, amount: BTCAmount, limit: float) -> OrderId:
+        raise NotImplementedError
+
+    def limit_sell_order(self, amount: BTCAmount, limit: float) -> OrderId:
         raise NotImplementedError

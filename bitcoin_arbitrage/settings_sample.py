@@ -6,7 +6,7 @@ LOG_LEVEL = logging.INFO
 
 from typing import List
 
-from currency_pair import CurrencyPair
+from currency import CurrencyPair
 
 from exchange import Exchange
 from exchange.bitfinex import Bitfinex
