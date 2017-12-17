@@ -18,6 +18,9 @@ class Bitstamp(Exchange):
     def update_prices(self) -> None:
         url = f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
         response = requests.get(url)
+        if response.status_code != 200:
+            logger.warning('Could not update prices. API returned status != 200.')
+            return
         json = response.json()
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
