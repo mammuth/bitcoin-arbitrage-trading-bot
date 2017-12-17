@@ -29,6 +29,11 @@ class Spread:
         return self.spread
 
     def _calculate_spread(self) -> int:
+        # if any of the necessary values is unavailale, return -1 as spread
+        if None in [self.exchange_one.last_bid_price, self.exchange_one.last_ask_price,
+                    self.exchange_two.last_bid_price, self.exchange_two.last_ask_price]:
+            return -1
+
         d1 = int(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
         d2 = int(self.exchange_two.last_bid_price - self.exchange_one.last_ask_price)
 

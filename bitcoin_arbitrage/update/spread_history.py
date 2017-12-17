@@ -24,6 +24,9 @@ class SpreadHistoryToCSV(UpdateAction):
             f.close()
 
         for spread in spreads:
+            if None in [spread.exchange_buy, spread.exchange_sell]:
+                continue
+
             row = {
                 'buy_exchange': spread.exchange_buy.name,
                 'sell_exchange': spread.exchange_sell.name,
