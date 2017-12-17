@@ -1,7 +1,23 @@
+from enum import Enum
+
 from abc import ABC, abstractmethod
 from typing import Optional
 
 from currency_pair import CurrencyPair
+
+OrderId = str
+BTCAmount = float
+
+
+class OrderSide(Enum):
+    BUY = 'buy'
+    SELL = 'sell'
+
+
+class OrderStatus(Enum):
+    PENDING = 'pending'
+    DONE = 'done'
+    CANCELLED = 'cancelled'
 
 
 class Exchange(ABC):
@@ -38,10 +54,16 @@ class Exchange(ABC):
         raise NotImplementedError('Implement update_prices() for your exchange. '
                                   'Make sure to also set self.last_ask_price and self.last_bid_price at the end.')
 
+    @abstractmethod
+    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
+                          currency_pair: CurrencyPair) -> OrderId:
+        raise NotImplementedError
+
+    # @abstractmethod
+    # def get_order_status(self, id: OrderId) -> OrderStatus:
+    #     raise NotImplementedError
+
     # @abstractmethod
     # def get_account_balance(self) -> float:
     #     raise NotImplementedError('Implement get_account_balance() for your exchange.')
     #
-    # @abstractmethod
-    # def buy(self) -> str:
-    #     raise NotImplementedError('Implement buy() for your exchange.')

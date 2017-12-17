@@ -1,7 +1,7 @@
 import requests
 
 from currency_pair import CurrencyPair
-from exchange import Exchange
+from exchange import Exchange, OrderId, BTCAmount, OrderSide
 from log import setup_logger
 
 logger = setup_logger('Bitstamp')
@@ -33,15 +33,16 @@ class Bitstamp(Exchange):
         eur_balance = float(json.get('eur_balance'))
         return eur_balance
 
-    def buy(self) -> str:
-        url = f"{self.base_url}/buy/{self.currency_pair}/"
+    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
+                          currency_pair: CurrencyPair) -> OrderId:
+        url = f"{self.base_url}/buy/{self.currency_pair_api_representation[self.currency_pair]}/"
         response = requests.post(url, data={
             'key': '',
             'signature': '',
             'nonce': '',
-            'amount': '',
+            'amount': amount,
             'price': '',
-            'limit_price': ''
+            'limit_price': limit
         })
         json = response.json()
         order_id = json.get('id')

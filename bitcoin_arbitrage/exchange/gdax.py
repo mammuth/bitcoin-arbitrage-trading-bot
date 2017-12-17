@@ -1,7 +1,7 @@
 import requests
 
 from currency_pair import CurrencyPair
-from exchange import Exchange
+from exchange import Exchange, OrderId, BTCAmount, OrderSide
 from log import setup_logger
 
 logger = setup_logger('gdax')
@@ -21,3 +21,17 @@ class Gdax(Exchange):
         json = response.json()
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
+
+    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
+                          currency_pair: CurrencyPair) -> OrderId:
+        url = f"{self.base_url}/orders/"
+        response = requests.post(url, data={
+            'product_id': self.currency_pair_api_representation.get(currency_pair),
+            'side': 'buy',
+            'size': amount,
+            'price': limit,
+            # 'cancel_after': ''  # ToDo
+        })
+        json = response.json()
+        order_id = json.get('id')
+        return order_id

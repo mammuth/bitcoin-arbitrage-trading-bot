@@ -1,7 +1,7 @@
 import requests
 
 from currency_pair import CurrencyPair
-from exchange import Exchange
+from exchange import Exchange, OrderSide, BTCAmount, OrderId
 from log import setup_logger
 
 logger = setup_logger('Bitfinex')
@@ -21,3 +21,7 @@ class Bitfinex(Exchange):
         json = response.json()
         self.last_ask_price = float(json.get('ask'))
         self.last_bid_price = float(json.get('bid'))
+
+    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
+                          currency_pair: CurrencyPair) -> OrderId:
+        raise NotImplementedError
