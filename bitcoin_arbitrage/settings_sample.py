@@ -1,6 +1,6 @@
 import logging
 
-from update.spread_history import SpreadHistoryToCSV
+from update.csv_writer import SpreadHistoryToCSV
 
 LOG_LEVEL = logging.INFO
 
