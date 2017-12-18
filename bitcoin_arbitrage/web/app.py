@@ -19,10 +19,16 @@ def shutdown_session(exception=None):
 
 @app.route('/')
 def index():
-    with open('spread_history.csv') as f:
+    with open(app.config.get('LAST_SPREADS_FILENAME')) as f:
+        last_spreads = [{k: v for k, v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
+    return render_template('index.html', last_spreads=last_spreads)
+
+
+@app.route('/all-spreads')
+def all_spreads():
+    with open(app.config.get('SPREAD_HISTORY_FILENAME')) as f:
         spreads = [{k: v for k, v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
-        last_spread = spreads[len(spreads) - 1]
-    return render_template('index.html', spreads=spreads, last_spread=last_spread)
+    return render_template('alls_spreads.html', spreads=spreads)
 
 
 # Error

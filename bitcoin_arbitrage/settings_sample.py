@@ -26,13 +26,11 @@ EXCHANGES: List[Exchange] = [
 UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
     StdoutNotification(spread_threshold=100),
-    SpreadHistoryToCSV(),
+    SpreadHistoryToCSV(filename='spread_history.csv'),
 ]
 
 UPDATE_INTERVAL = 30  # seconds
 
 TIME_BETWEEN_NOTIFICATIONS = 5 * 60  # Only send a notification every 5 minutes
-
-SPREAD_HISTORY_FILE = 'spread_history.csv'
 
 MINIMUM_SPREAD_TRADING = 200
