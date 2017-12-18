@@ -55,7 +55,8 @@ class Monitor:
         for pair in combinations:
             try:
                 spread = Spread(exchange_one=pair[0], exchange_two=pair[1])
-                spreads.append(spread)
+                if spread.spread > 0:
+                    spreads.append(spread)
             except SpreadMissingPriceError or SpreadDifferentCurrenciesError:
                 pass
         return spreads
