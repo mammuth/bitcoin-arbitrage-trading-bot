@@ -6,7 +6,7 @@ from typing import List
 import settings
 from exchange import Exchange
 from log import setup_logger
-from spread_detection import Spread
+from spread_detection import Spread, SpreadMissingPriceError, SpreadDifferentCurrenciesError
 
 logger = setup_logger('Monitor')
 
@@ -51,4 +51,11 @@ class Monitor:
 
     def _calculate_spreads(self) -> List[Spread]:
         combinations: List[(Exchange, Exchange)] = itertools.combinations(settings.EXCHANGES, 2)
-        return [Spread(exchange_one=pair[0], exchange_two=pair[1]) for pair in combinations]
+        spreads: List[Spread] = []
+        for pair in combinations:
+            try:
+                spread = Spread(exchange_one=pair[0], exchange_two=pair[1])
+                spreads.append(spread)
+            except SpreadMissingPriceError or SpreadDifferentCurrenciesError:
+                pass
+        return spreads
