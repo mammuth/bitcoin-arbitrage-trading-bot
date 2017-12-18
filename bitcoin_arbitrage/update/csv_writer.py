@@ -26,6 +26,7 @@ class AbstractSpreadToCSV(UpdateAction):
             w.writeheader()
             f.close()
 
+        rows: List[dict] = []
         for spread in spreads:
             if None in [spread.exchange_buy, spread.exchange_sell]:
                 continue
@@ -39,17 +40,18 @@ class AbstractSpreadToCSV(UpdateAction):
                 'currency_pair': spread.exchange_buy.currency_pair.value,
                 'timestamp': timestamp,
             }
+            rows.append(row)
 
-            if self.should_override:
-                with open(self.filename, 'w') as file:
-                    w = csv.DictWriter(file, self.header)
-                    w.writeheader()
-                    w.writerow(row)
-            else:
-                # Append data to file
-                with open(self.filename, 'a') as file:
-                    w = csv.DictWriter(file, self.header)
-                    w.writerow(row)
+        if self.should_override:
+            with open(self.filename, 'w') as file:
+                w = csv.DictWriter(file, self.header)
+                w.writeheader()
+                w.writerows(rows)
+        else:
+            # Append data to file
+            with open(self.filename, 'a') as file:
+                w = csv.DictWriter(file, self.header)
+                w.writerows(rows)
 
 
 class LastSpreadsToCSV(AbstractSpreadToCSV):

@@ -21,6 +21,7 @@ def shutdown_session(exception=None):
 def index():
     with open(app.config.get('LAST_SPREADS_FILENAME')) as f:
         last_spreads = [{k: v for k, v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
+        last_spreads = sorted(last_spreads, key=lambda x: int(x.get('spread')), reverse=True)
     return render_template('index.html', last_spreads=last_spreads)
 
 
