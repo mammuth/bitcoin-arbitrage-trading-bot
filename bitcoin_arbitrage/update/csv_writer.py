@@ -53,7 +53,7 @@ class AbstractSpreadToCSV(UpdateAction):
 
 
 class LastSpreadsToCSV(AbstractSpreadToCSV):
-    def __init__(self, filename: str, should_override=False, spread_threshold: Optional[int] = None) -> None:
+    def __init__(self, filename: str, should_override=True, spread_threshold: Optional[int] = None) -> None:
         super().__init__(filename, should_override, spread_threshold)
 
 
