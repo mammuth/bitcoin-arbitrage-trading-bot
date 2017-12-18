@@ -2,10 +2,18 @@ import settings
 from exchange import Exchange
 
 
+class SpreadDifferentCurrenciesError(Exception):
+    pass
+
+
+class SpreadMissingPriceError(Exception):
+    pass
+
+
 class Spread:
     def __init__(self, exchange_one: Exchange, exchange_two: Exchange) -> None:
         if exchange_one.currency_pair != exchange_two.currency_pair:
-            raise AttributeError('Spread between different currency pairs is not supported')
+            raise SpreadDifferentCurrenciesError('Spread between different currency pairs is not supported')
         self.exchange_one = exchange_one
         self.exchange_two = exchange_two
         self.exchange_buy: Exchange = None
@@ -29,10 +37,10 @@ class Spread:
         return self.spread
 
     def _calculate_spread(self) -> int:
-        # if any of the necessary values is unavailale, return -1 as spread
+        # if any of the necessary values is unavailale, a spread can not be calculated
         if None in [self.exchange_one.last_bid_price, self.exchange_one.last_ask_price,
                     self.exchange_two.last_bid_price, self.exchange_two.last_ask_price]:
-            return -1
+            raise SpreadMissingPriceError('Cannot calculate this spread because one of the prices is missing.')
 
         d1 = int(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
         d2 = int(self.exchange_two.last_bid_price - self.exchange_one.last_ask_price)
