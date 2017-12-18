@@ -1,9 +1,11 @@
 from enum import Enum
+import requests
 
 from abc import ABC, abstractmethod
 from typing import Optional
 
 from currency_pair import CurrencyPair
+
 
 OrderId = str
 BTCAmount = float
@@ -35,6 +37,10 @@ class Exchange(ABC):
     def base_url(self) -> str:
         raise NotImplementedError
 
+    @abstractmethod
+    def ticker_url(self) -> str:
+        raise NotImplementedError
+
     def __init__(self, currency_pair: CurrencyPair):
         self.currency_pair = currency_pair
         self.last_ask_price: Optional[float] = None
@@ -49,10 +55,14 @@ class Exchange(ABC):
                                 f"\n - Bid: {self.last_bid_price}"
 
     # ToDo: Make async
-    @abstractmethod
     def update_prices(self) -> None:
-        raise NotImplementedError('Implement update_prices() for your exchange. '
-                                  'Make sure to also set self.last_ask_price and self.last_bid_price at the end.')
+        response = requests.get(self.ticker_url())
+        if response.status_code != 200:
+            # logger.warning('Could not update prices. API returned status != 200.')
+            return
+        json = response.json()
+        self.last_ask_price = float(json.get('ask'))
+        self.last_bid_price = float(json.get('bid'))
 
     @abstractmethod
     def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,

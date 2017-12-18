@@ -11,9 +11,9 @@ requests = "*"
 "pushbullet.py" = "*"
 mypy = "*"
 isort = "*"
+pytest = "*"
 flask = "*"
 flask-sqlalchemy = "*"
-
 
 [dev-packages]
 
