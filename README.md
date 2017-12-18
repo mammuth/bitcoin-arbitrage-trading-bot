@@ -6,7 +6,6 @@ Requirements:
 
 Run the monitor:
 - `pipenv install` - Install requirements
-- `pipenv shell` - Enable virtualenv
 - `sciprts/copy-config` - Copy config file (some dummy settings are set by default)
 - `scripts/run` - Run the monitor
 
