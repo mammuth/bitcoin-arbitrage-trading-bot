@@ -64,18 +64,17 @@ if not app.debug:
     app.logger.info('errors')
 
 
-def start_monitor_thread():
-    loop = asyncio.new_event_loop()
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(test())
+def start_monitor_thread(loop):
+    print('start monitor thread')
     monitor = Monitor()
     loop.run_until_complete(monitor.update())
 
 
 if __name__ == '__main__':
-
-    t = Thread(target=start_monitor_thread)
+    monitor_loop = asyncio.get_event_loop()
+    t = Thread(target=start_monitor_thread, args=(monitor_loop,))
     t.start()
 
     port = int(os.environ.get('FLASK_PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=app.config.get('DEBUG'))
+    # reloader=True may result in start_monitor_thread called multiple times
+    app.run(host='0.0.0.0', port=port, debug=app.config.get('DEBUG'), use_reloader=False)

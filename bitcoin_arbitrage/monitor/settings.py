@@ -1,6 +1,6 @@
 import logging
 
-from monitor.update.csv_writer import SpreadHistoryToCSV
+from monitor.update.csv_writer import SpreadHistoryToCSV, LastSpreadsToCSV
 
 LOG_LEVEL = logging.DEBUG
 
@@ -25,6 +25,7 @@ EXCHANGES: List[Exchange] = [
 
 UPDATE_ACTIONS: List[UpdateAction] = [
     StdoutNotification(spread_threshold=0),
+    LastSpreadsToCSV(filename='last_spreads.csv'),
     # SpreadHistoryToCSV(filename='spread_history.csv'),
 ]
 
