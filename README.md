@@ -30,7 +30,6 @@ WantedBy=multi-user.target
 
 ### Running the tests
 Manually: 
-- `pipenv shell`
 - `scripts/test`
 
 With PyCharm:
