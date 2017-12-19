@@ -1,5 +1,6 @@
 .idea/
 .cache/
+.mypy_cache/
 
 *.pyc
 *.csv
