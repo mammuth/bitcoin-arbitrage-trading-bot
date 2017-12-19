@@ -1,21 +1,21 @@
 import logging
 
-from monitor.update.csv_writer import SpreadHistoryToCSV
+from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV
 
 LOG_LEVEL = logging.INFO
 
 from typing import List
 
-from monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
 
-from monitor.exchange import Exchange
-from monitor.exchange.bitfinex import Bitfinex
-from monitor.exchange.bitstamp import Bitstamp
-from monitor.exchange.gdax import Gdax
+from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.exchange.bitfinex import Bitfinex
+from bitcoin_arbitrage.monitor.exchange.bitstamp import Bitstamp
+from bitcoin_arbitrage.monitor.exchange.gdax import Gdax
 
-from monitor.update import UpdateAction
-from monitor.update.notification.pushbullet import Pushbullet
-from monitor.update.notification.stdout import StdoutNotification
+from bitcoin_arbitrage.monitor.update import UpdateAction
+from bitcoin_arbitrage.monitor.update.notification.pushbullet import Pushbullet
+from bitcoin_arbitrage.monitor.update.notification.stdout import StdoutNotification
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),

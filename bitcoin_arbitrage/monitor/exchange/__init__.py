@@ -4,7 +4,7 @@ import requests
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
 
 
 OrderId = str

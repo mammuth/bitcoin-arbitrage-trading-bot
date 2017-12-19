@@ -1,3 +1,6 @@
-#!/bin/sh -e
+#!/bin/bash
 
+set -x
+
+export PYTHONPATH=.
 pipenv run python bitcoin_arbitrage/app.py

@@ -2,14 +2,13 @@ import asyncio
 import csv
 from threading import Thread
 
-import time
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, FileHandler
 import logging
 import os
 
-from monitor.monitor import Monitor
+from bitcoin_arbitrage.monitor.monitor import Monitor
 
 app = Flask(__name__)
 app.config.from_object('config')

@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from bitcoin_arbitrage.monitor.spread_detection import Spread # NOQA
+from bitcoin_arbitrage.monitor import settings  # NOQA
 from bitcoin_arbitrage.monitor.update.notification.stdout import StdoutNotification
 
 

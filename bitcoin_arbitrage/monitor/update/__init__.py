@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from monitor.exchange import Exchange
-from monitor.spread_detection import Spread
+from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.spread_detection import Spread
 
 
 class UpdateAction(ABC):
