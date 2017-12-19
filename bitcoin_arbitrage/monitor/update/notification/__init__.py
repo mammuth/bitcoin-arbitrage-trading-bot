@@ -3,9 +3,9 @@ from datetime import datetime
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from exchange import Exchange
-from spread_detection import Spread
-from update import UpdateAction
+from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.spread_detection import Spread
+from bitcoin_arbitrage.monitor.update import UpdateAction
 
 
 class NotificationService(UpdateAction, ABC):

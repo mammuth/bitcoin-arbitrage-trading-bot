@@ -1,3 +1,0 @@
-#!/bin/sh -e
-
-pipenv run python bitcoin_arbitrage/web/app.py

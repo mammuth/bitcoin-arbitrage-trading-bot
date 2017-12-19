@@ -2,8 +2,7 @@
 Run the scripts from the project roots directory. 
 
 - `scripts/copy_config` - Copy the configuration file. Needed for running bitcoin arbitrage
-- `scripts/run` - Run bitcoin arbitrage
-- `scripts/run-webui` - Run web interface
+- `scripts/run` - Run flask app and monitor
 - `scripts/test` - Run pytest
 - `scripts/lint` - Run linter
 

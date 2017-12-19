@@ -2,12 +2,12 @@ from typing import List
 
 import pushbullet as pb_lib
 
-import settings
-from log import setup_logger
+from bitcoin_arbitrage.monitor import settings
+from bitcoin_arbitrage.monitor.log import setup_logger
 
-from exchange import Exchange
-from spread_detection import Spread
-from update.notification import NotificationService
+from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.spread_detection import Spread
+from bitcoin_arbitrage.monitor.update.notification import NotificationService
 
 logger = setup_logger('Pushbullet')
 

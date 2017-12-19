@@ -1,9 +1,9 @@
 from typing import List
 
-from exchange import Exchange
-from log import setup_logger
-from spread_detection import Spread
-from update.notification import NotificationService
+from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.log import setup_logger
+from bitcoin_arbitrage.monitor.spread_detection import Spread
+from bitcoin_arbitrage.monitor.update.notification import NotificationService
 
 logger = setup_logger('Stdout')
 

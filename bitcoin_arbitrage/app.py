@@ -1,10 +1,14 @@
+import asyncio
 import csv
+from threading import Thread
 
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, FileHandler
 import logging
 import os
+
+from bitcoin_arbitrage.monitor.monitor import Monitor
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -58,7 +62,18 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
 
+
+def start_monitor_thread(loop):
+    print('start monitor thread')
+    monitor = Monitor()
+    loop.run_until_complete(monitor.update())
+
+
 if __name__ == '__main__':
-    # run on port 5000 by default
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    monitor_loop = asyncio.get_event_loop()
+    t = Thread(target=start_monitor_thread, args=(monitor_loop,))
+    t.start()
+
+    port = int(os.environ.get('FLASK_PORT', 5000))
+    # reloader=True may result in start_monitor_thread called multiple times
+    app.run(host='0.0.0.0', port=port, debug=app.config.get('DEBUG'), use_reloader=False)

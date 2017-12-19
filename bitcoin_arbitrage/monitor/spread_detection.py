@@ -1,5 +1,5 @@
-import settings
-from exchange import Exchange
+from bitcoin_arbitrage.monitor import settings
+from bitcoin_arbitrage.monitor.exchange import Exchange
 
 
 class SpreadDifferentCurrenciesError(Exception):

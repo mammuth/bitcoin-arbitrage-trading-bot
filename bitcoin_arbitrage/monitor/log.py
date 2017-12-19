@@ -1,6 +1,6 @@
 import logging
 
-import settings
+from bitcoin_arbitrage.monitor import settings
 
 
 def setup_logger(logger_name, log_file='main.log', level=settings.LOG_LEVEL) -> logging.Logger:
