@@ -1,6 +1,6 @@
 import logging
 
-from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV
+from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV, LastSpreadsToCSV
 
 LOG_LEVEL = logging.INFO
 
@@ -27,6 +27,7 @@ UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
     StdoutNotification(spread_threshold=100),
     SpreadHistoryToCSV(filename='spread_history.csv'),
+    LastSpreadsToCSV(filename='last_spreads.csv'),
 ]
 
 UPDATE_INTERVAL = 30  # seconds
