@@ -1,5 +1,5 @@
-import settings
-from exchange import Exchange
+from monitor import settings
+from monitor.exchange import Exchange
 
 
 class SpreadDifferentCurrenciesError(Exception):

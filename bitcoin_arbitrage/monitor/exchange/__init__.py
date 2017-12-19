@@ -4,7 +4,7 @@ import requests
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from currency_pair import CurrencyPair
+from monitor.currency_pair import CurrencyPair
 
 
 OrderId = str

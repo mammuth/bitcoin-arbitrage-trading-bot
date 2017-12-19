@@ -1,21 +1,21 @@
 import logging
 
-from update.csv_writer import SpreadHistoryToCSV
+from monitor.update.csv_writer import SpreadHistoryToCSV
 
 LOG_LEVEL = logging.INFO
 
 from typing import List
 
-from currency_pair import CurrencyPair
+from monitor.currency_pair import CurrencyPair
 
-from exchange import Exchange
-from exchange.bitfinex import Bitfinex
-from exchange.bitstamp import Bitstamp
-from exchange.gdax import Gdax
+from monitor.exchange import Exchange
+from monitor.exchange.bitfinex import Bitfinex
+from monitor.exchange.bitstamp import Bitstamp
+from monitor.exchange.gdax import Gdax
 
-from update import UpdateAction
-from update.notification.pushbullet import Pushbullet
-from update.notification.stdout import StdoutNotification
+from monitor.update import UpdateAction
+from monitor.update.notification.pushbullet import Pushbullet
+from monitor.update.notification.stdout import StdoutNotification
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),

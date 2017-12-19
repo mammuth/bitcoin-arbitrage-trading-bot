@@ -3,10 +3,10 @@ import itertools
 from datetime import datetime
 from typing import List
 
-import settings
-from exchange import Exchange
-from log import setup_logger
-from spread_detection import Spread, SpreadMissingPriceError, SpreadDifferentCurrenciesError
+from monitor import settings
+from monitor.exchange import Exchange
+from monitor.log import setup_logger
+from monitor.spread_detection import Spread, SpreadMissingPriceError, SpreadDifferentCurrenciesError
 
 logger = setup_logger('Monitor')
 

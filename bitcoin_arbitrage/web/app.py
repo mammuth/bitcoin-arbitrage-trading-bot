@@ -8,7 +8,7 @@ from logging import Formatter, FileHandler
 import logging
 import os
 
-from monitor import Monitor
+from bitcoin_arbitrage.monitor.monitor import Monitor
 
 app = Flask(__name__)
 app.config.from_object('config')

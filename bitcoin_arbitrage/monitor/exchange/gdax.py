@@ -1,8 +1,8 @@
 import requests
 
-from currency_pair import CurrencyPair
-from exchange import Exchange, OrderId, BTCAmount, OrderSide
-from log import setup_logger
+from monitor.currency_pair import CurrencyPair
+from monitor.exchange import Exchange, OrderId, BTCAmount, OrderSide
+from monitor.log import setup_logger
 
 logger = setup_logger('gdax')
 

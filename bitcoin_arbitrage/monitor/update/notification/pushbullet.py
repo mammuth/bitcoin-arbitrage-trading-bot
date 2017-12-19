@@ -2,12 +2,12 @@ from typing import List
 
 import pushbullet as pb_lib
 
-import settings
-from log import setup_logger
+from monitor import settings
+from monitor.log import setup_logger
 
-from exchange import Exchange
-from spread_detection import Spread
-from update.notification import NotificationService
+from monitor.exchange import Exchange
+from monitor.spread_detection import Spread
+from monitor.update.notification import NotificationService
 
 logger = setup_logger('Pushbullet')
 

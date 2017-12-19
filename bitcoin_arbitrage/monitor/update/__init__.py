@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from exchange import Exchange
-from spread_detection import Spread
+from monitor.exchange import Exchange
+from monitor.spread_detection import Spread
 
 
 class UpdateAction(ABC):

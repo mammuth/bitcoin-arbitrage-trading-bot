@@ -1,9 +1,9 @@
 from typing import List
 
-from exchange import Exchange
-from log import setup_logger
-from spread_detection import Spread
-from update.notification import NotificationService
+from monitor.exchange import Exchange
+from monitor.log import setup_logger
+from monitor.spread_detection import Spread
+from monitor.update.notification import NotificationService
 
 logger = setup_logger('Stdout')
 
