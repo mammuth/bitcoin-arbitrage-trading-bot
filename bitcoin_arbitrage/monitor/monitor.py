@@ -38,6 +38,6 @@ class Monitor:
                 spread = Spread(exchange_one=pair[0], exchange_two=pair[1])
                 if spread.spread > 0:
                     spreads.append(spread)
-            except SpreadMissingPriceError or SpreadDifferentCurrenciesError:
+            except (SpreadMissingPriceError, SpreadDifferentCurrenciesError):
                 pass
         return spreads

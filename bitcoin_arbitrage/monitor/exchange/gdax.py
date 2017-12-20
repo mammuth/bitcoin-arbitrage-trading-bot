@@ -12,7 +12,10 @@ class Gdax(Exchange):
 
     currency_pair_api_representation = {
         CurrencyPair.BTC_USD: "BTC-USD",
-        CurrencyPair.BTC_EUR: "BTC-EUR"
+        CurrencyPair.BTC_EUR: "BTC-EUR",
+
+        CurrencyPair.ETH_USD: "ETH-USD",
+        CurrencyPair.ETH_EUR: "ETH-EUR",
     }
 
     def ticker_url(self):

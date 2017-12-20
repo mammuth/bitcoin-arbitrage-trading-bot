@@ -19,8 +19,12 @@ from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV, Last
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),
+
     Bitstamp(CurrencyPair.BTC_EUR),
+    # Bitstamp(CurrencyPair.ETH_EUR),
+
     Gdax(CurrencyPair.BTC_EUR),
+    # Gdax(CurrencyPair.ETH_EUR),
 ]
 
 UPDATE_ACTIONS: List[UpdateAction] = [

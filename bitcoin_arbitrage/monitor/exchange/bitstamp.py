@@ -12,7 +12,10 @@ class Bitstamp(Exchange):
 
     currency_pair_api_representation = {
         CurrencyPair.BTC_USD: "btcusd",
-        CurrencyPair.BTC_EUR: "btceur"
+        CurrencyPair.BTC_EUR: "btceur",
+
+        CurrencyPair.ETH_USD: "ethusd",
+        CurrencyPair.ETH_EUR: "etheur",
     }
 
     def ticker_url(self):

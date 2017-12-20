@@ -16,7 +16,7 @@ class SpreadMissingPriceError(Exception):
 class Spread:
     def __init__(self, exchange_one: Exchange, exchange_two: Exchange) -> None:
         if exchange_one.currency_pair != exchange_two.currency_pair:
-            logger.warning('Spread between different currency pairs is not supported')
+            logger.debug('Spread between different currency pairs is not supported')
             raise SpreadDifferentCurrenciesError('Spread between different currency pairs is not supported')
         self.exchange_one = exchange_one
         self.exchange_two = exchange_two

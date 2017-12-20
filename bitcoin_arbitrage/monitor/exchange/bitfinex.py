@@ -10,7 +10,10 @@ class Bitfinex(Exchange):
 
     currency_pair_api_representation = {
         CurrencyPair.BTC_USD: "BTCUSD",
-        CurrencyPair.BTC_EUR: "BTCEUR"
+        CurrencyPair.BTC_EUR: "BTCEUR",
+
+        CurrencyPair.ETH_USD: "ETHUSD",
+        # CurrencyPair.ETH_EUR: "ETHEUR",  # Does not exist apparently
     }
 
     def ticker_url(self):
