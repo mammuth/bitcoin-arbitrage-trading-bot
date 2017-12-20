@@ -4,12 +4,12 @@ from typing import List, Optional
 
 import os
 
+from bitcoin_arbitrage.models import Spread
 from bitcoin_arbitrage.monitor.exchange import Exchange
 from bitcoin_arbitrage.monitor.update import UpdateAction
 
 
 class AbstractSpreadToCSV(UpdateAction):
-    from bitcoin_arbitrage.monitor.spread_detection import Spread
 
     def __init__(self, filename: str, should_override: bool, spread_threshold: Optional[int] = None) -> None:
         super().__init__(spread_threshold)

@@ -12,6 +12,7 @@ import os
 from sqlalchemy import Date, cast
 
 from bitcoin_arbitrage import config
+from bitcoin_arbitrage.monitor import settings
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -89,16 +90,13 @@ if not app.debug:
 
 def start_monitor_thread(loop):
     from bitcoin_arbitrage.monitor.monitor import Monitor
-    print('start monitor thread')
     app.logger.info('start monitor thread')
     monitor = Monitor()
     try:
         loop.run_until_complete(monitor.update())
     except Exception:
         import traceback
-        print('Exception im monitor. Stacktrace:')
         app.logger.error('Exception im monitor. Stacktrace:')
-        print(traceback.format_exc())
         app.logger.error(traceback.format_exc())
 
 

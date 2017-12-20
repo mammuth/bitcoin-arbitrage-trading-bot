@@ -3,10 +3,10 @@ import itertools
 from datetime import datetime
 from typing import List
 
+from bitcoin_arbitrage.models import Spread, SpreadDifferentCurrenciesError, SpreadMissingPriceError
 from bitcoin_arbitrage.monitor import settings
 from bitcoin_arbitrage.monitor.exchange import Exchange
 from bitcoin_arbitrage.monitor.log import setup_logger
-from bitcoin_arbitrage.monitor.spread_detection import Spread, SpreadMissingPriceError, SpreadDifferentCurrenciesError
 
 logger = setup_logger('Monitor')
 
