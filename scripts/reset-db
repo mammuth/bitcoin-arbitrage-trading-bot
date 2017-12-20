@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -x
+
+find . -name "*.db" -delete
+
+export PYTHONPATH=.
+pipenv run python scripts/_reset_db.py
