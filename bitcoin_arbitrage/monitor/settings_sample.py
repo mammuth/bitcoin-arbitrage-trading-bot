@@ -1,7 +1,5 @@
 import logging
 
-from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV, LastSpreadsToCSV
-
 LOG_LEVEL = logging.INFO
 
 from typing import List
@@ -17,6 +15,7 @@ from bitcoin_arbitrage.monitor.update import UpdateAction
 from bitcoin_arbitrage.monitor.update.db_commit import SpreadHistoryToDB
 from bitcoin_arbitrage.monitor.update.notification.pushbullet import Pushbullet
 from bitcoin_arbitrage.monitor.update.notification.stdout import StdoutNotification
+from bitcoin_arbitrage.monitor.update.csv_writer import SpreadHistoryToCSV, LastSpreadsToCSV
 
 EXCHANGES: List[Exchange] = [
     Bitfinex(CurrencyPair.BTC_EUR),
