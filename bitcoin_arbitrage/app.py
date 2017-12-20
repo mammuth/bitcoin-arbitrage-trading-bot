@@ -32,7 +32,7 @@ def realtime():
         .limit(3)\
         .from_self().order_by(Spread.spread.desc())\
         .all()
-    return render_template('index.html', last_spreads=last_spreads)
+    return render_template('index.html', spreads=last_spreads)
 
 
 def _spreads_list_view(queryset: SQLAlchemy.Query) -> Response:

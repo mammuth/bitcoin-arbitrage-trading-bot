@@ -1,0 +1,24 @@
+<table id="datatable" class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Spread</th>
+        <th>Buy Exchange</th>
+        <th>Sell Exchange</th>
+        <th>Time</th>
+        <th>Currency Pair</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for spread in spreads %}
+      <tr>
+        <td>{{ spread.id }}</td>
+        <td>{{ spread.spread }}</td>
+        <td>{{ spread.exchange_buy.name }}<br/>{{ spread.exchange_buy.last_ask_price }}</td>
+        <td>{{ spread.exchange_sell.name }}<br/>{{ spread.exchange_sell.last_bid_price }}</td>
+        <td>{{ spread.recorded_date }}</td>
+        <td>{{ spread.exchange_buy.currency_pair.value }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
