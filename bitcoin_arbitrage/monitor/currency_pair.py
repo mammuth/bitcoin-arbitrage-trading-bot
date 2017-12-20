@@ -13,7 +13,7 @@ class CurrencyPair(Enum):
 
     @property
     def fiat_symbol(self):
-        if self == CurrencyPair.BTC_EUR:
+        if self in [CurrencyPair.BTC_EUR, CurrencyPair.BCH_EUR, CurrencyPair.ETH_EUR]:
             return '€'
-        elif self == CurrencyPair.BTC_USD:
+        elif self in [CurrencyPair.BTC_USD, CurrencyPair.BCH_USD, CurrencyPair.ETH_USD]:
             return '$'
