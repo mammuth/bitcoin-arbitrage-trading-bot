@@ -8,10 +8,10 @@ from logging import Formatter, FileHandler
 import logging
 import os
 
-from bitcoin_arbitrage.monitor.monitor import Monitor
+from bitcoin_arbitrage import config
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object(config)
 db = SQLAlchemy(app)
 
 
@@ -23,17 +23,16 @@ def shutdown_session(exception=None):
 
 @app.route('/')
 def index():
-    with open(app.config.get('LAST_SPREADS_FILENAME')) as f:
-        last_spreads = [{k: v for k, v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
-        last_spreads = sorted(last_spreads, key=lambda x: int(x.get('spread')), reverse=True)
+    from bitcoin_arbitrage.models import Spread
+    last_spreads = Spread.query.order_by(Spread.id.desc()).limit(3).all()
     return render_template('index.html', last_spreads=last_spreads)
 
 
 @app.route('/all-spreads')
 def all_spreads():
-    with open(app.config.get('SPREAD_HISTORY_FILENAME')) as f:
-        spreads = [{k: v for k, v in row.items()} for row in csv.DictReader(f, skipinitialspace=True)]
-    return render_template('alls_spreads.html', spreads=spreads)
+    from bitcoin_arbitrage.models import Spread
+    spreads = Spread.query.all()
+    return render_template('all_spreads.html', spreads=spreads)
 
 
 # Error
@@ -64,6 +63,7 @@ if not app.debug:
 
 
 def start_monitor_thread(loop):
+    from bitcoin_arbitrage.monitor.monitor import Monitor
     print('start monitor thread')
     monitor = Monitor()
     loop.run_until_complete(monitor.update())

@@ -13,7 +13,7 @@
     <div class="row tile_count">
         {% for spread in last_spreads %}
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-line-chart"></i> {{ spread.buy_exchange }} -> {{ spread.sell_exchange }}</span>
+                <span class="count_top"><i class="fa fa-line-chart"></i> {{ spread.exchange_buy.name }} -> {{ spread.exchange_sell.name }}</span>
                 <div class="count">{{ spread.spread }}€</div>
         {#        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>#}
             </div>
@@ -36,10 +36,10 @@
                     {% for spread in last_spreads %}
                       <tr>
                         <td>{{ spread.spread }}</td>
-                        <td>{{ spread.buy_exchange }}<br/>{{ spread.buy_price }}</td>
-                        <td>{{ spread.sell_exchange }}<br/>{{ spread.sell_price }}</td>
-                        <td>{{ spread.time_pretty }}</td>
-                        <td>{{ spread.currency_pair }}</td>
+                        <td>{{ spread.exchange_buy.name }}<br/>{{ spread.exchange_buy.last_ask_price }}</td>
+                        <td>{{ spread.exchange_sell.name }}<br/>{{ spread.exchange_sell.last_bid_price }}</td>
+                        <td>{{ spread.recorded_date }}</td>
+                        <td>{{ spread.exchange_buy.currency_pair.value }}</td>
                       </tr>
                     {% endfor %}
                 </tbody>

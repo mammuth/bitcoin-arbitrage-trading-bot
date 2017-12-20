@@ -14,6 +14,7 @@ from bitcoin_arbitrage.monitor.exchange.bitstamp import Bitstamp
 from bitcoin_arbitrage.monitor.exchange.gdax import Gdax
 
 from bitcoin_arbitrage.monitor.update import UpdateAction
+from bitcoin_arbitrage.monitor.update.db_commit import SpreadHistoryToDB
 from bitcoin_arbitrage.monitor.update.notification.pushbullet import Pushbullet
 from bitcoin_arbitrage.monitor.update.notification.stdout import StdoutNotification
 
@@ -26,8 +27,7 @@ EXCHANGES: List[Exchange] = [
 UPDATE_ACTIONS: List[UpdateAction] = [
     Pushbullet(spread_threshold=500, api_key='DEBUG'),
     StdoutNotification(spread_threshold=100),
-    SpreadHistoryToCSV(filename='spread_history.csv'),
-    LastSpreadsToCSV(filename='last_spreads.csv'),
+    SpreadHistoryToDB(),
 ]
 
 UPDATE_INTERVAL = 30  # seconds
