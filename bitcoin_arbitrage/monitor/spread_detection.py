@@ -31,14 +31,18 @@ class Spread:
         return self.__str__()
 
     @property
-    def summary(self):
+    def summary(self) -> str:
         return f'{self.exchange_buy} [{self.exchange_buy.last_ask_price}] -> ' \
                f'{self.exchange_sell} [{self.exchange_sell.last_bid_price}] -> ' \
-               f'Spread: {self.spread}'
+               f'Spread: {self.spread_with_currency}'
 
     @property
-    def spread_verbose(self):
-        return self.spread
+    def spread_with_currency(self) -> str:
+        return f'{self.spread} {self.exchange_buy.currency_pair.fiat_symbol}'
+
+    @property
+    def spread_percentage(self):
+        return self.spread / self.exchange_buy.last_bid_price
 
     def _calculate_spread(self) -> int:
         # if any of the necessary values is unavailale, a spread can not be calculated

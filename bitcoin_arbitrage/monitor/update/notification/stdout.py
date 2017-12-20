@@ -14,4 +14,4 @@ class StdoutNotification(NotificationService):
             return
         spread = self._get_spread_for_notification(spreads)
         if spread is not None:
-            print(f'BTC Spread {spread.spread_verbose} - {spread.summary}')
+            print(f'Spread {spread.spread_with_currency} - {spread.summary}')
