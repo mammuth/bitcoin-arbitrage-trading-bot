@@ -16,6 +16,7 @@ class Bitfinex(Exchange):
         # CurrencyPair.ETH_EUR: "ETHEUR",  # Does not exist apparently
     }
 
+    @property
     def ticker_url(self):
         return f"{self.base_url}/pubticker/{self.currency_pair_api_representation[self.currency_pair]}"
 

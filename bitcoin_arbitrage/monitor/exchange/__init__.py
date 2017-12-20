@@ -42,6 +42,7 @@ class Exchange(ABC):
     def base_url(self) -> str:
         raise NotImplementedError
 
+    @property
     @abstractmethod
     def ticker_url(self) -> str:
         raise NotImplementedError
@@ -61,7 +62,7 @@ class Exchange(ABC):
 
     # ToDo: Make async
     def update_prices(self) -> None:
-        response = requests.get(self.ticker_url())
+        response = requests.get(self.ticker_url)
         if response.status_code != 200:
             logger.warning('Could not update prices. API returned status != 200.')
             return

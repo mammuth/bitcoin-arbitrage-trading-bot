@@ -18,6 +18,7 @@ class Bitstamp(Exchange):
         CurrencyPair.ETH_EUR: "etheur",
     }
 
+    @property
     def ticker_url(self):
         return f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
 

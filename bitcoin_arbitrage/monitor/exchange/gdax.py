@@ -18,6 +18,7 @@ class Gdax(Exchange):
         CurrencyPair.ETH_EUR: "ETH-EUR",
     }
 
+    @property
     def ticker_url(self):
         return f"{self.base_url}/products/{self.currency_pair_api_representation[self.currency_pair]}/ticker"
 
