@@ -1,3 +1,5 @@
+import json
+import sys
 from enum import Enum
 import requests
 
@@ -5,6 +7,9 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.log import setup_logger
+
+logger = setup_logger('Exchange')
 
 
 OrderId = str
@@ -58,11 +63,15 @@ class Exchange(ABC):
     def update_prices(self) -> None:
         response = requests.get(self.ticker_url())
         if response.status_code != 200:
-            # logger.warning('Could not update prices. API returned status != 200.')
+            logger.warning('Could not update prices. API returned status != 200.')
             return
-        json = response.json()
-        self.last_ask_price = float(json.get('ask'))
-        self.last_bid_price = float(json.get('bid'))
+        try:
+            json_response = response.json()
+            self.last_ask_price = float(json_response.get('ask'))
+            self.last_bid_price = float(json_response.get('bid'))
+        except json.decoder.JSONDecodeError or TypeError:
+            logger.error('Could not update prices. Error on json processing:')
+            logger.error(sys.exc_info())
 
     @abstractmethod
     def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
