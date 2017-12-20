@@ -1,5 +1,6 @@
 import asyncio
 import csv
+from datetime import date
 from threading import Thread
 
 from flask import Flask, render_template
@@ -7,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, FileHandler
 import logging
 import os
+from sqlalchemy import Date, cast
 
 from bitcoin_arbitrage import config
 
@@ -26,6 +28,16 @@ def index():
     from bitcoin_arbitrage.models import Spread
     last_spreads = Spread.query.order_by(Spread.id.desc()).limit(3).all()
     return render_template('index.html', last_spreads=last_spreads)
+
+
+@app.route('/today')
+def today():
+    from bitcoin_arbitrage.models import Spread
+    spreads = Spread.query\
+        .filter(cast(Spread.recorded_date, Date) == cast(date.today(), Date))\
+        .order_by(Spread.id.desc())\
+        .all()
+    return render_template('all_spreads.html', spreads=spreads)
 
 
 @app.route('/all-spreads')
