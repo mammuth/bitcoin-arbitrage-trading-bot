@@ -3,7 +3,7 @@ import csv
 from datetime import date
 from threading import Thread
 
-from flask import Flask, render_template
+from flask import Flask, render_template, Response
 from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, FileHandler
 import logging
@@ -30,7 +30,7 @@ def index():
     return render_template('index.html', last_spreads=last_spreads)
 
 
-def _spreads_list_view(queryset: SQLAlchemy.Query):
+def _spreads_list_view(queryset: SQLAlchemy.Query) -> Response:
     from bitcoin_arbitrage.models import Spread
     all = queryset.order_by(Spread.id.desc()).all()
     highest = queryset.order_by(Spread.spread.desc()).first()
