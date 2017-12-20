@@ -2,6 +2,11 @@
 
 {% block title %}{{ last_spreads.0.spread }}€ · Dashboard{% endblock title %}
 
+{#{% block head %}#}
+{#    {{ super }}#}
+{#    <meta http-equiv="refresh" content="5" />#}
+{#{% endblock %}#}
+
 {% block stylesheets %}
     {{ super() }}
 {% endblock stylesheets %}
@@ -50,4 +55,9 @@
 
 {% block javascripts %}
   {{ super()}}
+    <script>
+        {# Completely reload page every x seconds #}
+        var seconds = 5;
+        setTimeout("location.reload(true);", seconds * 1000);
+    </script>
 {% endblock javascripts %}

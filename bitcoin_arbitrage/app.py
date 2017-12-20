@@ -24,7 +24,7 @@ def shutdown_session(exception=None):
 
 
 @app.route('/')
-def index():
+def realtime():
     from bitcoin_arbitrage.models import Spread
     last_spreads = Spread.query.order_by(Spread.id.desc()).limit(3).all()
     return render_template('index.html', last_spreads=last_spreads)
