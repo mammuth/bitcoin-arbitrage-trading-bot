@@ -30,21 +30,27 @@ def index():
     return render_template('index.html', last_spreads=last_spreads)
 
 
+def _spreads_list_view(queryset: SQLAlchemy.Query):
+    from bitcoin_arbitrage.models import Spread
+    all = queryset.order_by(Spread.id.desc()).all()
+    highest = queryset.order_by(Spread.spread.desc()).first()
+    lowest = queryset.order_by(Spread.spread.asc()).first()
+    return render_template('spreads_list.html', spreads=all, highest=highest, lowest=lowest)
+
+
 @app.route('/today')
 def today():
     from bitcoin_arbitrage.models import Spread
-    spreads = Spread.query\
-        .filter(cast(Spread.recorded_date, Date) == cast(date.today(), Date))\
-        .order_by(Spread.id.desc())\
-        .all()
-    return render_template('all_spreads.html', spreads=spreads)
+    todays_spreads_query = Spread.query\
+        .filter(cast(Spread.recorded_date, Date) == cast(date.today(), Date))
+    return _spreads_list_view(todays_spreads_query)
 
 
 @app.route('/all-spreads')
 def all_spreads():
     from bitcoin_arbitrage.models import Spread
-    spreads = Spread.query.all()
-    return render_template('all_spreads.html', spreads=spreads)
+    spreads_query = Spread.query
+    return _spreads_list_view(spreads_query)
 
 
 # Error

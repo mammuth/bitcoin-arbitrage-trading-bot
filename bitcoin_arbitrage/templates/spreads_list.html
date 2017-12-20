@@ -13,6 +13,24 @@
 
 {% block content %}
   <div class="right_col" role="main">
+    <!-- top tiles -->
+    <div class="row tile_count">
+        {% if highest %}
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-line-chart"></i> {{ highest.exchange_buy.name }} -> {{ highest.exchange_sell.name }}</span>
+                <div class="count">{{ highest.spread }}€</div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Highest</span>
+            </div>
+        {% endif %}
+        {% if lowest %}
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-line-chart"></i> {{ lowest.exchange_buy.name }} -> {{ lowest.exchange_sell.name }}</span>
+                <div class="count">{{ lowest.spread }}€</div>
+                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i></i> Lowest</span>
+            </div>
+        {% endif %}
+    </div>
+    <!-- /top tiles -->
     <div class="row">
         <table id="datatable" class="table table-striped table-bordered">
                 <thead>
