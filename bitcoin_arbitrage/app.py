@@ -2,6 +2,7 @@ import asyncio
 import csv
 from datetime import date
 from threading import Thread
+from typing import List
 
 from flask import Flask, render_template, Response
 from flask_sqlalchemy import SQLAlchemy
@@ -26,7 +27,8 @@ def shutdown_session(exception=None):
 @app.route('/')
 def realtime():
     from bitcoin_arbitrage.models import Spread
-    last_spreads = Spread.query.order_by(Spread.id.desc()).limit(3).all()
+    last_spreads: List[Spread] = Spread.query.order_by(Spread.id.desc()).limit(3).all()
+    last_spreads = sorted(last_spreads, key=lambda x: x.spread, reverse=True)
     return render_template('index.html', last_spreads=last_spreads)
 
 
