@@ -76,20 +76,30 @@ def internal_error(error):
 
 # Logs
 if not app.debug:
-    file_handler = FileHandler('error.log')
-    format = '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-    file_handler.setFormatter(Formatter(format))
-    app.logger.setLevel(logging.INFO)
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-    app.logger.info('errors')
+    # file_handler = FileHandler('error.log')
+    # format = '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    # file_handler.setFormatter(Formatter(format))
+    # app.logger.setLevel(logging.INFO)
+    # file_handler.setLevel(logging.INFO)
+    # app.logger.addHandler(file_handler)
+    # app.logger.info('errors')
+    from bitcoin_arbitrage.monitor.log import setup_logger
+    app.logger = setup_logger('App')
 
 
 def start_monitor_thread(loop):
     from bitcoin_arbitrage.monitor.monitor import Monitor
     print('start monitor thread')
+    app.logger.info('start monitor thread')
     monitor = Monitor()
-    loop.run_until_complete(monitor.update())
+    try:
+        loop.run_until_complete(monitor.update())
+    except Exception:
+        import traceback
+        print('Exception im monitor. Stacktrace:')
+        app.logger.error('Exception im monitor. Stacktrace:')
+        print(traceback.format_exc())
+        app.logger.error(traceback.format_exc())
 
 
 if __name__ == '__main__':

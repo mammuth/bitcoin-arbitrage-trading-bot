@@ -1,5 +1,8 @@
 from bitcoin_arbitrage.monitor import settings
 from bitcoin_arbitrage.monitor.exchange import Exchange
+from bitcoin_arbitrage.monitor.log import setup_logger
+
+logger = setup_logger('Spread')
 
 
 class SpreadDifferentCurrenciesError(Exception):
@@ -13,6 +16,7 @@ class SpreadMissingPriceError(Exception):
 class Spread:
     def __init__(self, exchange_one: Exchange, exchange_two: Exchange) -> None:
         if exchange_one.currency_pair != exchange_two.currency_pair:
+            logger.warning('Spread between different currency pairs is not supported')
             raise SpreadDifferentCurrenciesError('Spread between different currency pairs is not supported')
         self.exchange_one = exchange_one
         self.exchange_two = exchange_two
@@ -40,6 +44,7 @@ class Spread:
         # if any of the necessary values is unavailale, a spread can not be calculated
         if None in [self.exchange_one.last_bid_price, self.exchange_one.last_ask_price,
                     self.exchange_two.last_bid_price, self.exchange_two.last_ask_price]:
+            logger.warning('Cannot calculate this spread because one of the prices is missing.')
             raise SpreadMissingPriceError('Cannot calculate this spread because one of the prices is missing.')
 
         d1 = int(self.exchange_one.last_bid_price - self.exchange_two.last_ask_price)
