@@ -29,7 +29,7 @@ def realtime():
     from bitcoin_arbitrage.models import Spread
     last_spreads: List[Spread] = Spread.query\
         .order_by(Spread.id.desc())\
-        .limit(3)\
+        .limit(4)\
         .from_self().order_by(Spread.spread.desc())\
         .all()
     return render_template('index.html', spreads=last_spreads)
