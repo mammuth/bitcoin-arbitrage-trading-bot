@@ -1,5 +1,7 @@
-#!/bin/sh -e
+#!/bin/sh
+
+set -x
 
 pipenv run flake8 bitcoin_arbitrage
-pipenv run isort bitcoin_arbitrage
-pipenv run mypy bitcoin_arbitrage
+pipenv run isort bitcoin_arbitrage --recursive --check-only
+pipenv run mypy bitcoin_arbitrage --ignore-missing-imports --disallow-untyped-defs

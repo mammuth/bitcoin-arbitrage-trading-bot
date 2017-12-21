@@ -12,7 +12,8 @@ requests = "*"
 mypy = "*"
 isort = "*"
 pytest = "*"
-
+flask = "*"
+flask-sqlalchemy = "*"
 
 [dev-packages]
 

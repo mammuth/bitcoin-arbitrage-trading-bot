@@ -1,8 +1,10 @@
 .idea/
 .cache/
+.mypy_cache/
 
 *.pyc
 *.csv
 *.log
+*.db
 
-bitcoin_arbitrage/settings.py
+bitcoin_arbitrage/monitor/settings.py

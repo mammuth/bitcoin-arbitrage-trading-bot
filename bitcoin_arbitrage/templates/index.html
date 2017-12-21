@@ -1,0 +1,53 @@
+{% extends "base_site.html" %}
+
+{% block title %}{{ spreads.0.spread }}€ {% endblock title %}
+
+{#{% block head %}#}
+{#    {{ super }}#}
+{#    <meta http-equiv="refresh" content="5" />#}
+{#{% endblock %}#}
+
+{% block stylesheets %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    {% include 'include/spread_top_tiles.html' %}
+    <div class="row">
+        {% include 'include/spreads_table.html' %}
+    </div>
+
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+    <script>
+        {# Completely reload page every x seconds #}
+        var seconds = 5;
+        setTimeout("location.reload(true);", seconds * 1000);
+
+    </script>
+  <!-- Datatables -->
+  <script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}

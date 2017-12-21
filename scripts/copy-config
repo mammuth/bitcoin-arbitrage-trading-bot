@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-cp bitcoin_arbitrage/settings_sample.py bitcoin_arbitrage/settings.py
+cp bitcoin_arbitrage/monitor/settings_sample.py bitcoin_arbitrage/monitor/settings.py
 echo "Copied settings.py. Please head there to configure bitcoin arbitrage."
