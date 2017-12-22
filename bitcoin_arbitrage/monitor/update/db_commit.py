@@ -9,6 +9,7 @@ class SpreadHistoryToDB(UpdateAction):
     from bitcoin_arbitrage.monitor.spread_detection import Spread
 
     def run(self, spreads: List[Spread], exchanges: List[Exchange], timestamp: float) -> None:
+        db_spreads: List[Spread] = []
         for spread in spreads:
             exchange_buy = Exchange(name=spread.exchange_buy.name,
                                     currency_pair=spread.exchange_buy.currency_pair,
@@ -25,6 +26,7 @@ class SpreadHistoryToDB(UpdateAction):
             s = Spread(spread=spread.spread,
                        exchange_buy=exchange_buy,
                        exchange_sell=exchange_sell)
-            db.session.add(s)
+            db_spreads.append(s)
 
-            db.session.commit()
+        db.session.add_all(db_spreads)
+        db.session.commit()
