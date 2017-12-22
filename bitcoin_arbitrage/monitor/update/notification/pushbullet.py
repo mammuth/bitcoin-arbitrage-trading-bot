@@ -1,6 +1,7 @@
 from typing import List
 
 import pushbullet as pb_lib
+from pushbullet import PushError
 
 from bitcoin_arbitrage.monitor import settings
 from bitcoin_arbitrage.monitor.log import setup_logger
@@ -28,4 +29,7 @@ class Pushbullet(NotificationService):
         if spread is not None:
             logger.info('Notifying about spread via Pushbullet')
             if self._pb is not None:
-                self._pb.push_note(title=f'Spread {spread.spread_with_currency}', body=f'{spread.summary}')
+                try:
+                    self._pb.push_note(title=f'Spread {spread.spread_with_currency}', body=f'{spread.summary}')
+                except PushError as e:
+                    logger.error(f'Cannot push spread via Pushbullet.\n{e}')
