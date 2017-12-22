@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from logging import Formatter, FileHandler
 import logging
 import os
-from sqlalchemy import Date, cast
+from sqlalchemy import Date, cast, and_, extract
 
 from bitcoin_arbitrage import config
 
@@ -46,8 +46,14 @@ def _spreads_list_view(queryset: SQLAlchemy.Query) -> Response:
 @app.route('/today')
 def today():
     from bitcoin_arbitrage.models import Spread
-    todays_spreads_query = Spread.query\
-        .filter(cast(Spread.recorded_date, Date) == cast(date.today(), Date))
+    now = date.today()
+    todays_spreads_query = Spread.query.filter(
+        and_(
+            now.year == extract('year', Spread.recorded_date),
+            now.month == extract('month', Spread.recorded_date),
+            now.day == extract('day', Spread.recorded_date)
+        )
+    )
     return _spreads_list_view(todays_spreads_query)
 
 
