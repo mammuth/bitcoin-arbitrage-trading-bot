@@ -1,6 +1,5 @@
 import json
 import sys
-from enum import Enum
 import requests
 
 from abc import ABC, abstractmethod
@@ -12,6 +11,7 @@ from bitcoin_arbitrage.monitor.order import OrderId
 from bitcoin_arbitrage.monitor.log import setup_logger
 
 logger = setup_logger('Exchange')
+
 
 class Exchange(ABC):
     @property

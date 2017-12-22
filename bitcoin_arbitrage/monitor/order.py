@@ -12,7 +12,7 @@ class OrderStatus(Enum):
 
 class Order:
     def __init__(self) -> None:
-        from exchange import Exchange
+        from bitcoin_arbitrage.monitor.exchange import Exchange
         self.exchange: Exchange
         self.order_id: OrderId
         self.status: OrderStatus

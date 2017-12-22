@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from bitcoin_arbitrage.app import db
 from bitcoin_arbitrage.config import SQLALCHEMY_DATABASE_URI
-from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency import CurrencyPair
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
