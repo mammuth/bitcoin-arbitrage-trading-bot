@@ -1,5 +1,6 @@
 from enum import Enum
 
+from bitcoin_arbitrage.monitor.exchange import Exchange
 
 OrderId = str
 
@@ -11,8 +12,7 @@ class OrderStatus(Enum):
 
 
 class Order:
-    def __init__(self) -> None:
-        from bitcoin_arbitrage.monitor.exchange import Exchange
-        self.exchange: Exchange
-        self.order_id: OrderId
-        self.status: OrderStatus
+    def __init__(self, exchange: Exchange, order_id: OrderId) -> None:
+        self.exchange = exchange
+        self.order_id = order_id
+        self.status = OrderStatus.PENDING

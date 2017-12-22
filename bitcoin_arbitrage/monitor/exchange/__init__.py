@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from bitcoin_arbitrage.monitor.currency import CurrencyPair, BTCAmount
-from bitcoin_arbitrage.monitor.order import OrderId
+from bitcoin_arbitrage.monitor.order import OrderId, Order
 
 from bitcoin_arbitrage.monitor.log import setup_logger
 
@@ -61,11 +61,11 @@ class Exchange(ABC):
             logger.error(sys.exc_info())
 
     @abstractmethod
-    def limit_buy_order(self, amount: BTCAmount, limit: float) -> OrderId:
+    def limit_buy_order(self, amount: BTCAmount, limit: float) -> Order:
         raise NotImplementedError
 
     @abstractmethod
-    def limit_sell_order(self, amount: BTCAmount, limit: float) -> OrderId:
+    def limit_sell_order(self, amount: BTCAmount, limit: float) -> Order:
         raise NotImplementedError
 
     # @abstractmethod
@@ -73,6 +73,6 @@ class Exchange(ABC):
     #     raise NotImplementedError
 
     # @abstractmethod
-    # def get_account_balance(self) -> float:
+    # def get_account_balance(self) -> FiatAmount:
     #     raise NotImplementedError('Implement get_account_balance() for your exchange.')
     #

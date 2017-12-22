@@ -1,8 +1,9 @@
 import requests
 
-from bitcoin_arbitrage.monitor.currency import CurrencyPair
+from bitcoin_arbitrage.monitor.currency import CurrencyPair, FiatAmount
 from bitcoin_arbitrage.monitor.exchange import Exchange, OrderId, BTCAmount
 from bitcoin_arbitrage.monitor.log import setup_logger
+from bitcoin_arbitrage.monitor.order import Order
 
 logger = setup_logger('Bitstamp')
 
@@ -19,10 +20,10 @@ class Bitstamp(Exchange):
     }
 
     @property
-    def ticker_url(self):
+    def ticker_url(self) -> str:
         return f"{self.base_url}/ticker/{self.currency_pair_api_representation[self.currency_pair]}"
 
-    def get_account_balance(self) -> float:
+    def get_account_balance(self) -> FiatAmount:
         url = f"{self.base_url}/balance/"
         response = requests.post(url, data={
             'key': '',
@@ -47,10 +48,12 @@ class Bitstamp(Exchange):
         order_id = json.get('id')
         return order_id
 
-    def limit_sell_order(self, amount: BTCAmount, limit: float) -> OrderId:
-        return self._place_limit_order('sell', amount, limit)
+    def limit_sell_order(self, amount: BTCAmount, limit: float) -> Order:
+        order_id = self._place_limit_order('sell', amount, limit)
+        return Order(exchange=self, order_id=order_id)
 
-    def limit_buy_order(self, amount: BTCAmount, limit: float) -> OrderId:
-        return self._place_limit_order('buy', amount, limit)
+    def limit_buy_order(self, amount: BTCAmount, limit: float) -> Order:
+        order_id = self._place_limit_order('buy', amount, limit)
+        return Order(exchange=self, order_id=order_id)
 
 
