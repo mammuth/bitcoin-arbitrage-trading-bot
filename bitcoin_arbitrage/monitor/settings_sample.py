@@ -1,5 +1,7 @@
 import logging
 
+import os
+
 LOG_LEVEL = logging.INFO
 
 from typing import List
@@ -43,7 +45,6 @@ TRADING_LIMIT_PUFFER = 10  # Fiat Amount
 TRADING_ORDER_STATE_UPDATE_INTERVAL = 1
 TRADING_TIME_UNTIL_ORDER_CANCELLATION = 30
 
-# Think about using environment variables here. eg. os.environ['GDAX_KEY']
-GDAX_KEY = ''
-GDAX_SIGNATURE = ''
-GDAX_PASSPHRASE = ''
+GDAX_KEY = os.environ.get('GDAX_KEY')
+GDAX_SIGNATURE = os.environ.get('GDAX_SIGNATURE')
+GDAX_PASSPHRASE = os.environ.get('GDAX_PASSPHRASE')
