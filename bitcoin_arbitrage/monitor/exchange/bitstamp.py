@@ -25,7 +25,7 @@ class Bitstamp(Exchange):
 
     def get_account_balance(self) -> FiatAmount:
         url = f"{self.base_url}/balance/"
-        response = requests.post(url, data={
+        response = requests.post(url, json={
             'key': '',
             'signature': '',
             'nonce': ''
@@ -36,7 +36,7 @@ class Bitstamp(Exchange):
 
     def _place_limit_order(self, side: str, amount: BTCAmount, limit: float) -> OrderId:
         url = f"{self.base_url}/{side}/{self.currency_pair_api_representation[self.currency_pair]}/"
-        response = requests.post(url, data={
+        response = requests.post(url, json={
             'key': '',
             'signature': '',
             'nonce': '',
