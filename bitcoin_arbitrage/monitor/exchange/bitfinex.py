@@ -1,7 +1,7 @@
 from bitcoin_arbitrage.monitor.currency import CurrencyPair
-from bitcoin_arbitrage.monitor.exchange import Exchange, BTCAmount, OrderId
+from bitcoin_arbitrage.monitor.exchange import Exchange, BTCAmount
 from bitcoin_arbitrage.monitor.log import setup_logger
-from bitcoin_arbitrage.monitor.order import Order
+from bitcoin_arbitrage.monitor.order import Order, OrderState
 
 logger = setup_logger('Bitfinex')
 
@@ -25,4 +25,7 @@ class Bitfinex(Exchange):
         raise NotImplementedError
 
     def limit_buy_order(self, amount: BTCAmount, limit: float) -> Order:
+        raise NotImplementedError
+
+    def get_order_state(self, order: Order) -> OrderState:
         raise NotImplementedError

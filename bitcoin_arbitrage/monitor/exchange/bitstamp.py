@@ -1,9 +1,9 @@
 import requests
 
 from bitcoin_arbitrage.monitor.currency import CurrencyPair, FiatAmount
-from bitcoin_arbitrage.monitor.exchange import Exchange, OrderId, BTCAmount
+from bitcoin_arbitrage.monitor.exchange import Exchange, BTCAmount
 from bitcoin_arbitrage.monitor.log import setup_logger
-from bitcoin_arbitrage.monitor.order import Order
+from bitcoin_arbitrage.monitor.order import Order, OrderState, OrderId
 
 logger = setup_logger('Bitstamp')
 
@@ -56,4 +56,5 @@ class Bitstamp(Exchange):
         order_id = self._place_limit_order('buy', amount, limit)
         return Order(exchange=self, order_id=order_id)
 
-
+    def get_order_state(self, order: Order) -> OrderState:
+        raise NotImplementedError
