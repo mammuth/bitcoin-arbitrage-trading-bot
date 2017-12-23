@@ -4,7 +4,7 @@ LOG_LEVEL = logging.INFO
 
 from typing import List
 
-from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency import CurrencyPair
 
 from bitcoin_arbitrage.monitor.exchange import Exchange
 from bitcoin_arbitrage.monitor.exchange.bitfinex import Bitfinex
@@ -38,3 +38,7 @@ UPDATE_INTERVAL = 30  # seconds
 TIME_BETWEEN_NOTIFICATIONS = 5 * 60  # Only send a notification every 5 minutes
 
 MINIMUM_SPREAD_TRADING = 200
+TRADING_BTC_AMOUNT = 0.5
+TRADING_LIMIT_PUFFER = 10  # Fiat Amount
+TRADING_ORDER_STATE_UPDATE_INTERVAL = 1
+TRADING_TIME_UNTIL_ORDER_CANCELLATION = 30

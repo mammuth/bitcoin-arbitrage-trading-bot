@@ -1,6 +1,7 @@
-from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
-from bitcoin_arbitrage.monitor.exchange import Exchange, OrderSide, BTCAmount, OrderId
+from bitcoin_arbitrage.monitor.currency import CurrencyPair
+from bitcoin_arbitrage.monitor.exchange import Exchange, BTCAmount
 from bitcoin_arbitrage.monitor.log import setup_logger
+from bitcoin_arbitrage.monitor.order import Order, OrderState
 
 logger = setup_logger('Bitfinex')
 
@@ -17,9 +18,14 @@ class Bitfinex(Exchange):
     }
 
     @property
-    def ticker_url(self):
+    def ticker_url(self) -> str:
         return f"{self.base_url}/pubticker/{self.currency_pair_api_representation[self.currency_pair]}"
 
-    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
-                          currency_pair: CurrencyPair) -> OrderId:
+    def limit_sell_order(self, amount: BTCAmount, limit: float) -> Order:
+        raise NotImplementedError
+
+    def limit_buy_order(self, amount: BTCAmount, limit: float) -> Order:
+        raise NotImplementedError
+
+    def get_order_state(self, order: Order) -> OrderState:
         raise NotImplementedError

@@ -1,30 +1,16 @@
 import json
 import sys
-from enum import Enum
 import requests
 
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency import CurrencyPair, BTCAmount
+from bitcoin_arbitrage.monitor.order import Order, OrderState
+
 from bitcoin_arbitrage.monitor.log import setup_logger
 
 logger = setup_logger('Exchange')
-
-
-OrderId = str
-BTCAmount = float
-
-
-class OrderSide(Enum):
-    BUY = 'buy'
-    SELL = 'sell'
-
-
-class OrderStatus(Enum):
-    PENDING = 'pending'
-    DONE = 'done'
-    CANCELLED = 'cancelled'
 
 
 class Exchange(ABC):
@@ -75,15 +61,20 @@ class Exchange(ABC):
             logger.error(sys.exc_info())
 
     @abstractmethod
-    def place_limit_order(self, side: OrderSide, amount: BTCAmount, limit: float,
-                          currency_pair: CurrencyPair) -> OrderId:
+    def limit_buy_order(self, amount: BTCAmount, limit: float) -> Order:
+        raise NotImplementedError
+
+    @abstractmethod
+    def limit_sell_order(self, amount: BTCAmount, limit: float) -> Order:
+        raise NotImplementedError
+
+    def get_order_state(self, order: Order) -> OrderState:
+        raise NotImplementedError
+
+    def cancel_order(self, order: Order) -> None:
         raise NotImplementedError
 
     # @abstractmethod
-    # def get_order_status(self, id: OrderId) -> OrderStatus:
-    #     raise NotImplementedError
-
-    # @abstractmethod
-    # def get_account_balance(self) -> float:
+    # def get_account_balance(self) -> FiatAmount:
     #     raise NotImplementedError('Implement get_account_balance() for your exchange.')
     #

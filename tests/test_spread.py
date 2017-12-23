@@ -3,7 +3,7 @@ import pytest
 from bitcoin_arbitrage.monitor import settings  # NOQA
 from bitcoin_arbitrage.monitor.log import setup_logger  # NOQA
 from bitcoin_arbitrage.monitor.log import setup_logger  # NOQA
-from bitcoin_arbitrage.monitor.currency_pair import CurrencyPair
+from bitcoin_arbitrage.monitor.currency import CurrencyPair
 from bitcoin_arbitrage.monitor.exchange.bitstamp import Bitstamp
 from bitcoin_arbitrage.monitor.spread_detection import Spread
 from bitcoin_arbitrage.monitor.spread_detection import SpreadDifferentCurrenciesError
