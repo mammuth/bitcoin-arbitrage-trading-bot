@@ -71,6 +71,9 @@ class Exchange(ABC):
     def get_order_state(self, order: Order) -> OrderState:
         raise NotImplementedError
 
+    def cancel_order(self, order: Order) -> None:
+        raise NotImplementedError
+
     # @abstractmethod
     # def get_account_balance(self) -> FiatAmount:
     #     raise NotImplementedError('Implement get_account_balance() for your exchange.')

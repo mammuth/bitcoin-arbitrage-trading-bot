@@ -14,3 +14,7 @@ class Order:
         self.exchange = exchange
         self.order_id = order_id
         self.state = OrderState.PENDING
+
+    def get_state(self) -> OrderState:
+        self.state = self.exchange.get_order_state(self)
+        return self.state

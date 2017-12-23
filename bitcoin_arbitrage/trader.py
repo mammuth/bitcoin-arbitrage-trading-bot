@@ -1,4 +1,6 @@
 import time
+import datetime
+
 from enum import Enum
 from typing import List, Optional
 
@@ -56,35 +58,61 @@ class Trader(UpdateAction):
         return self.state == TraderState.READY and above_spread_limit
 
     def _make_trade(self) -> Trade:
+        """
+        Strategy:
+         - Place sell order
+         - Busy Wait until sell order is executed (or TRADING_TIME_UNTIL_ORDER_CANCELLATION is exceeded)
+         - Place buy order
+        """
         # ToDo Test / Review / Make sure we don't fuck up
         btc_order_amount = settings.TRADING_BTC_AMOUNT
-
-        # Sell Order
-        sell_limit = self.spread.exchange_sell.last_bid_price - settings.TRADING_LIMIT_PUFFER
-        sell_order: Order = self.spread.exchange_sell.limit_buy_order(btc_order_amount, sell_limit)
-        sell_order_state = self.spread.exchange_sell.get_order_state(sell_order)
-
+        time_until_cancellation = datetime.timedelta(seconds=settings.TRADING_TIME_UNTIL_ORDER_CANCELLATION)
         self.state = TraderState.TRADE_PENDING
 
+        #
+        # Sell Order
+        #
+        sell_limit = self.spread.exchange_sell.last_bid_price - settings.TRADING_LIMIT_PUFFER
+        sell_order: Order = self.spread.exchange_sell.limit_buy_order(btc_order_amount, sell_limit)
+        sell_order_state = sell_order.get_state()
+
+        start_time_sell_order = datetime.datetime.now()
+
         while sell_order_state is OrderState.PENDING:
-            sell_order_state = self.spread.exchange_sell.get_order_state(sell_order)
+            if datetime.datetime.now() > start_time_sell_order + time_until_cancellation:
+                # ToDo: How to handle this?
+                self.spread.exchange_sell.cancel_order(sell_order)
+                logger.warning('Trade execution stopped, because sell order was not executed in the wished time.')
+
+            sell_order_state = sell_order.get_state()
             time.sleep(settings.TRADING_ORDER_STATE_UPDATE_INTERVAL)
 
         if sell_order_state is OrderState.CANCELLED:
             # ToDo: How to handle this?
+            self.state = TraderState.READY
             logger.warning('Sell Order is cancelled.')
+            return
 
+        #
+        # Buy Order
+        #
         if sell_order_state is OrderState.DONE:
-            # Buy Order
+            start_time_buy_order = datetime.datetime.now()
             buy_limit = self.spread.exchange_buy.last_ask_price + settings.TRADING_LIMIT_PUFFER
             buy_order: Order = self.spread.exchange_buy.limit_buy_order(btc_order_amount, buy_limit)
-            buy_order_state = self.spread.exchange_buy.get_order_state(buy_order)
+            buy_order_state = buy_order.get_state()
 
             while buy_order_state is OrderState.PENDING:
-                buy_order_state = self.spread.exchange_buy.get_order_state(buy_order)
+                if datetime.datetime.now() > start_time_buy_order + time_until_cancellation:
+                    # ToDo: How to handle this?
+                    self.spread.exchange_buy.cancel_order(buy_order)
+                    logger.warning('Trade execution stopped, because buy order was not executed in the wished time.')
+
+                buy_order_state = buy_order.get_state()
                 time.sleep(settings.TRADING_ORDER_STATE_UPDATE_INTERVAL)
 
             self.state = TraderState.TRADE_DONE
+
             return Trade(sell_order=sell_order, buy_order=buy_order)
 
     def _store_trade(self, trade: Trade) -> None:
