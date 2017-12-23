@@ -41,7 +41,7 @@ class Trader(UpdateAction):
             self.spread = spreads[0]
 
             # Evaluate opportunity
-            if self._should_use_this_spread() is True:
+            if self._should_use_this_spread() is False:
                 return
 
             # Execute trade
@@ -55,7 +55,7 @@ class Trader(UpdateAction):
 
     def _should_use_this_spread(self) -> bool:
         above_spread_limit = self.spread.spread > settings.MINIMUM_SPREAD_TRADING
-        return self.state == TraderState.READY and above_spread_limit
+        return above_spread_limit
 
     def _make_trade(self) -> Trade:
         """
@@ -73,7 +73,7 @@ class Trader(UpdateAction):
         # Sell Order
         #
         sell_limit = self.spread.exchange_sell.last_bid_price - settings.TRADING_LIMIT_PUFFER
-        sell_order: Order = self.spread.exchange_sell.limit_buy_order(btc_order_amount, sell_limit)
+        sell_order: Order = self.spread.exchange_sell.limit_sell_order(btc_order_amount, sell_limit)
         sell_order_state = sell_order.get_state()
 
         start_time_sell_order = datetime.datetime.now()
