@@ -19,7 +19,7 @@ The following example explains *spreads* between exchanges:
 | Gdax     | 5000€         |
 | Bitfinex | 5**6**00€         |
 
-This results in a spread of 600€ between the price of 1 BTC in EUR between Gdax and Bitfinex (this example is not based on ask and bid prices for simplicity reasons, the bot itself uses those correct prices).
+This results in a spread of 600€ for the price of 1 BTC in EUR between Gdax and Bitfinex (this example is not based on ask and bid prices for simplicity reasons, the bot itself uses those correct prices).
 
 ### How to exploit this spread?
 (example based on above table)
