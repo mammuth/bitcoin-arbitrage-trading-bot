@@ -63,7 +63,7 @@ This results in a spread of 600€ between the price of 1 BTC in EUR between Gda
 |                                                                              | Capital needed: ~ 2x5000€ (fiat currency: 5000€ + BTC worth ~5000€)    |
 
 
-The following table demonstrates the amount of BTC and fiat on the different exchanges during the different phases of the execution of the strategy:
+The following table demonstrates the amount of BTC and fiat stored on the exchanges during the different phases of the execution of the strategy:
 
 **Preparation**
 
