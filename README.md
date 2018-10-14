@@ -79,7 +79,7 @@ The following table demonstrates the amount of BTC and fiat stored on the exchan
 | Gdax     | 1             | 0           |
 | Bitfinex | 0             | 5600        |
 
-**Profit** (excluding fees for simplicity): **600€**
+**Profit: 600€** (excluding fees for simplicity)
 
 ## Status of project
 The strategy worked during the *crypto boom* at the end of 2017 (with spreads of > 700€ several times a week). As of now, spreads are pretty low (< 100€) which renders using the bot risky and less attractive (change of prices during order executions, fees, ...).
