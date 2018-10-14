@@ -54,8 +54,8 @@ This results in a spread of 600€ for the price of 1 BTC in EUR between Gdax an
 - Simultaneously sell 1 BTC on Bitfinex
 
 **Postprocessing (steps needed to be able to repeat exploit):**    
-- Transfer 5000€ from Bitfinex to Gdax
-- Transfer 1 BTC from Gdax Bitfinex
+- Transfer 5600€ from Bitfinex to Gdax
+- Transfer 1 BTC from Gdax to Bitfinex
 
 | Advantages                                                                                       | Disadvantages                                                          |
 |--------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
