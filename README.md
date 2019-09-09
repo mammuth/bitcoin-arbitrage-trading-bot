@@ -1,4 +1,7 @@
 # Bitcoin Arbitrage Trading Bot
+
+<a href="https://www.buymeacoffee.com/mammuth" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 A python monitoring and trading bot which exploits price-spreads between different cryptocurrency exchanges.
 
 <img width="1235" alt="bitcoin-arbitrage-trading-bot" src="https://user-images.githubusercontent.com/3121306/46918330-4ce52400-cfd1-11e8-8c30-1c6dd0758e04.png">
