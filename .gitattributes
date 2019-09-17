@@ -1,3 +1,2 @@
- # Ignore templates and statisc for GitHub language statistics
 bitcoin_arbitrage/static/* linguist-vendored=true
 bitcoin_arbitrage/templates/* linguist-vendored=true
